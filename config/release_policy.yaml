@@ -10,8 +10,17 @@ purposes:
     allow_uncertain: false
     require_second_review: false
 
+  model_evaluation:
+    description: "Контрольный бенчмарк для валидации, сравнения точности и калибровки готовых предобученных моделей"
+    required_permissions:
+      can_store: true
+      can_transform: true
+    allow_multilabel: false
+    allow_uncertain: false
+    require_second_review_for_test: true
+
   commercial_ml:
-    description: "Экспорт воспроизводимых обучающих, валидационных и тестовых выборок для ИИ"
+    description: "Экспорт выборок для самостоятельного дообучения моделей (отложено на следующие этапы)"
     required_permissions:
       can_store: true
       can_transform: true

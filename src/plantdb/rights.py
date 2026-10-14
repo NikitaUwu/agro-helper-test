@@ -38,6 +38,9 @@ def can_use(
     if purpose == Purpose.GALLERY:
         return decision.can_store is True and decision.display_allowed()
 
+    if purpose == Purpose.MODEL_EVALUATION:
+        return decision.can_store is True and decision.can_transform is True
+
     if purpose == Purpose.COMMERCIAL_ML:
         return (
             decision.can_store is True

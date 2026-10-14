@@ -87,3 +87,22 @@ def test_pending_or_rejected_blocks_use(base_approved_decision):
     )
     assert can_use(rejected_decision, Purpose.GALLERY) is False
     assert can_use(rejected_decision, Purpose.COMMERCIAL_ML) is False
+
+
+def test_model_evaluation_rights(base_approved_decision):
+    """Model evaluation requires can_store and can_transform, but not can_train."""
+    eval_decision = base_approved_decision.model_copy(
+        update={
+            "can_store": True,
+            "can_transform": True,
+            "can_train": False,
+            "can_redistribute": False,
+        }
+    )
+    assert can_use(eval_decision, Purpose.MODEL_EVALUATION) is True
+    assert can_use(eval_decision, Purpose.COMMERCIAL_ML) is False
+
+    eval_missing_transform = base_approved_decision.model_copy(
+        update={"can_transform": None}
+    )
+    assert can_use(eval_missing_transform, Purpose.MODEL_EVALUATION) is False

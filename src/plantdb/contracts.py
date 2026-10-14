@@ -11,6 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field
 class Purpose(str, Enum):
     """Release purpose."""
     GALLERY = "gallery"
+    MODEL_EVALUATION = "model_evaluation"
     COMMERCIAL_ML = "commercial_ml"
 
 

@@ -3,27 +3,27 @@ sources:
   - id: "src_own_field_2026"
     name: "Собственная съёмка и партнёрские хозяйства"
     version: "2026.1"
-    priority: 1
+    priority: 99
     channel_type: "direct_contract"
     url: null
     access_method: "direct_upload"
-    rights_holder: "Партнёрские агрохозяйства и штатные специалисты"
-    license: "Прямой договор передачи исключительных/неисключительных прав"
+    rights_holder: "Партнёрские агрохозяйства"
+    license: "Прямой договор"
     license_type: "proprietary_contract"
-    evidence_ref: "contracts/2026_field_agreements.pdf"
+    evidence_ref: null
     allowed_purposes:
-      can_store: true
-      can_display: true
-      can_transform: true
-      can_train: true
-      can_redistribute: true
-    status: "approved"
-    notes: "Основной канал полевых оригиналов. Обязательна фиксация сессии, даты, региона и органа."
+      can_store: false
+      can_display: false
+      can_transform: false
+      can_train: false
+      can_redistribute: false
+    status: "withdrawn"
+    notes: "Канал отключён: проект переведён исключительно на использование открытых баз данных."
 
   - id: "src_plantvillage_v1"
     name: "PlantVillage Dataset"
     version: "1.0.0"
-    priority: 3
+    priority: 1
     channel_type: "open_dataset"
     url: "https://huggingface.co/datasets/mohanty/PlantVillage"
     access_method: "download"
@@ -38,7 +38,27 @@ sources:
       can_train: true
       can_redistribute: true
     status: "approved"
-    notes: "Начальные примеры на нейтральном фоне. Требует сохранения атрибуции и соблюдения условий ShareAlike при распространении производных датасетов."
+    notes: "Основной открытый датасет на нейтральном фоне. Большинство готовых моделей предобучены именно на PlantVillage. При показе в UI требуется атрибуция авторов."
+
+  - id: "src_mendeley_plant_pathology"
+    name: "Mendeley Data / Plant Pathology Open Collections"
+    version: "2024.1"
+    priority: 2
+    channel_type: "open_dataset"
+    url: "https://data.mendeley.com/"
+    access_method: "download"
+    rights_holder: "Различные исследовательские группы (Huang et al., Bell et al.)"
+    license: "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    license_type: "cc_by_4.0"
+    evidence_ref: "evidence/mendeley_cc_by_4.txt"
+    allowed_purposes:
+      can_store: true
+      can_display: true
+      can_transform: true
+      can_train: true
+      can_redistribute: true
+    status: "approved"
+    notes: "Открытые академические датасеты (листья томата, яблони, картофеля) под свободной коммерческой лицензией CC BY 4.0 с требованием указания авторства."
 
   - id: "src_plantdoc_v1"
     name: "PlantDoc Dataset"

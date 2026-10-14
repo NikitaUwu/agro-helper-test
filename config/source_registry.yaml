@@ -1,0 +1,141 @@
+version: "1.0"
+sources:
+  - id: "src_own_field_2026"
+    name: "Собственная съёмка и партнёрские хозяйства"
+    version: "2026.1"
+    priority: 1
+    channel_type: "direct_contract"
+    url: null
+    access_method: "direct_upload"
+    rights_holder: "Партнёрские агрохозяйства и штатные специалисты"
+    license: "Прямой договор передачи исключительных/неисключительных прав"
+    license_type: "proprietary_contract"
+    evidence_ref: "contracts/2026_field_agreements.pdf"
+    allowed_purposes:
+      can_store: true
+      can_display: true
+      can_transform: true
+      can_train: true
+      can_redistribute: true
+    status: "approved"
+    notes: "Основной канал полевых оригиналов. Обязательна фиксация сессии, даты, региона и органа."
+
+  - id: "src_plantvillage_v1"
+    name: "PlantVillage Dataset"
+    version: "1.0.0"
+    priority: 3
+    channel_type: "open_dataset"
+    url: "https://huggingface.co/datasets/mohanty/PlantVillage"
+    access_method: "download"
+    rights_holder: "David P. Hughes, Marcel Salathé (Penn State University)"
+    license: "Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)"
+    license_type: "cc_by_sa_3.0"
+    evidence_ref: "evidence/plantvillage_license.txt"
+    allowed_purposes:
+      can_store: true
+      can_display: true
+      can_transform: true
+      can_train: true
+      can_redistribute: true
+    status: "approved"
+    notes: "Начальные примеры на нейтральном фоне. Требует сохранения атрибуции и соблюдения условий ShareAlike при распространении производных датасетов."
+
+  - id: "src_plantdoc_v1"
+    name: "PlantDoc Dataset"
+    version: "1.0.0"
+    priority: 4
+    channel_type: "open_dataset"
+    url: "https://github.com/pratikkayal/PlantDoc-Dataset"
+    access_method: "git_clone"
+    rights_holder: "Pratik Kayal et al. (IIT Kharagpur) / Various Web Creators"
+    license: "CC BY 4.0 (заявленная в репозитории)"
+    license_type: "cc_by_4.0"
+    evidence_ref: "evidence/plantdoc_repo_license.txt"
+    allowed_purposes:
+      can_store: true
+      can_display: false
+      can_transform: false
+      can_train: false
+      can_redistribute: false
+    status: "pending"
+    notes: "Снимки собраны авторами из поисковой выдачи Интернета. Заявленная лицензия репозитория не гарантирует права на исходные фото. Требуется проверка каждого первоисточника до допуска в релиз."
+
+  - id: "src_plantwild_v1"
+    name: "PlantWild Dataset"
+    version: "1.0.0"
+    priority: 6
+    channel_type: "open_dataset"
+    url: "https://tqwei05.github.io/PlantWild/"
+    access_method: "download"
+    rights_holder: "PlantWild Research Team"
+    license: "Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 (CC BY-NC-ND 4.0)"
+    license_type: "cc_by_nc_nd_4.0"
+    evidence_ref: "evidence/plantwild_license.txt"
+    allowed_purposes:
+      can_store: false
+      can_display: false
+      can_transform: false
+      can_train: false
+      can_redistribute: false
+    status: "rejected"
+    notes: "Некоммерческая лицензия (NC-ND). В коммерческую базу и экспорт для коммерческого обучения не включать без отдельного прямого соглашения."
+
+  - id: "src_bugwood_ipm"
+    name: "Bugwood Center / IPM Images"
+    version: "continuous"
+    priority: 5
+    channel_type: "curated_archive"
+    url: "https://www.ipmimages.org/"
+    access_method: "item_by_item"
+    rights_holder: "Индивидуальные авторы карточек Bugwood"
+    license: "Зависит от карточки (CC BY, CC BY-NC и др.)"
+    license_type: "per_asset"
+    evidence_ref: "evidence/bugwood_terms.txt"
+    allowed_purposes:
+      can_store: true
+      can_display: null
+      can_transform: null
+      can_train: null
+      can_redistribute: null
+    status: "pending"
+    notes: "Решение принимается индивидуально по каждому снимку и правообладателю. Не объявлять весь сайт открытым."
+
+  - id: "src_eppo_codes"
+    name: "EPPO Data Services (Codes & Names)"
+    version: "2026.1"
+    priority: 1
+    channel_type: "reference_taxonomy"
+    url: "https://data.eppo.int/"
+    access_method: "api_export"
+    rights_holder: "European and Mediterranean Plant Protection Organization (EPPO)"
+    license: "EPPO Open Data Licence"
+    license_type: "open_data"
+    evidence_ref: "evidence/eppo_open_data_licence.pdf"
+    allowed_purposes:
+      can_store: true
+      can_display: true
+      can_transform: true
+      can_train: true
+      can_redistribute: true
+    status: "approved"
+    notes: "Используется строго как эталонный справочник таксономии и идентификаторов (не является разрешением на фотографии EPPO)."
+
+  - id: "src_cabi_compendium"
+    name: "CABI PlantwisePlus Knowledge Bank"
+    version: "2026"
+    priority: 7
+    channel_type: "restricted_reference"
+    url: "https://www.cabi.org/terms-and-conditions/"
+    access_method: "contract_only"
+    rights_holder: "CABI"
+    license: "CABI Terms of Use (Restricted/Proprietary)"
+    license_type: "proprietary_restricted"
+    evidence_ref: "evidence/cabi_terms.pdf"
+    allowed_purposes:
+      can_store: false
+      can_display: false
+      can_transform: false
+      can_train: false
+      can_redistribute: false
+    status: "rejected"
+    notes: "Систематическое извлечение и использование данных в ИИ запрещено условиями использования. Массовый сбор запрещен до подписания двустороннего соглашения."

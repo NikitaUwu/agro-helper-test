@@ -1,0 +1,42 @@
+version: "1.0.0"
+
+purposes:
+  gallery:
+    description: "Показ проверенных примеров симптомов в интерфейсе продукта"
+    required_permissions:
+      can_store: true
+      can_display: true
+    allow_multilabel: true
+    allow_uncertain: false
+    require_second_review: false
+
+  commercial_ml:
+    description: "Экспорт воспроизводимых обучающих, валидационных и тестовых выборок для ИИ"
+    required_permissions:
+      can_store: true
+      can_transform: true
+      can_train: true
+      can_redistribute: true
+    allow_multilabel: false
+    allow_uncertain: false
+    require_second_review_for_test: true
+    fractions:
+      train: 0.70
+      validation: 0.15
+      test: 0.15
+    split_tolerance: 0.05
+    group_isolation_required: true
+
+quality_thresholds:
+  min_dimension_pilot: 256
+  min_dimension_preferred: 1024
+  allowed_mime_types:
+    - "image/jpeg"
+    - "image/png"
+    - "image/webp"
+  phash_candidate_max_distance: 4
+
+target_metrics:
+  min_independent_groups_per_class: 50
+  preferred_angles_per_group_min: 2
+  preferred_angles_per_group_max: 4

@@ -1,10 +1,11 @@
-"""Command-line interface for PlantDB management and ingestion."""
+"""Command-line interface for PlantDB management, downloading, and ingestion."""
 
 import argparse
 from pathlib import Path
 import sys
 
 from plantdb.db import init_db
+from plantdb.downloader import download_plantvillage
 from plantdb.ingest import ingest_directory
 from plantdb.models import DiseaseClass, ImageRecord, ModelEvaluation, Source
 
@@ -47,6 +48,32 @@ def cmd_import(args):
                 print(f"  - {err}")
 
 
+def cmd_download(args):
+    """Download open images from PlantVillage with optional auto-import."""
+    target_dir = Path(args.dir)
+    results = download_plantvillage(
+        target_dir=target_dir,
+        limit_per_class=args.limit,
+        max_workers=args.workers,
+    )
+
+    if args.auto_import:
+        print("\n=== Auto-importing downloaded images into PlantDB ===")
+        session_factory = init_db()
+        with session_factory() as session:
+            summary = ingest_directory(
+                session=session,
+                dir_path=target_dir,
+                source_id="plantvillage",
+                min_dimension=args.min_dim,
+            )
+            print("\n--- Ingest Summary ---")
+            print(f"Total files found:      {summary.total_found}")
+            print(f"Successfully imported:  {summary.imported}")
+            print(f"Duplicates skipped:     {summary.duplicates_skipped}")
+            print(f"Quality rejected:       {summary.quality_rejected}")
+
+
 def cmd_stats(args):
     """Show current database statistics."""
     session_factory = init_db()
@@ -65,7 +92,7 @@ def cmd_stats(args):
             crop_classes = [c for c in classes if c.crop == crop]
             class_ids = [c.id for c in crop_classes]
             img_count = session.query(ImageRecord).filter(ImageRecord.class_id.in_(class_ids)).count()
-            print(f"  - {crop}: {len(crop_classes)} classes, {img_count} images")
+            print(f"  - {crop} ({crop_classes[0].crop_en}): {len(crop_classes)} classes, {img_count} images")
 
 
 def main():
@@ -82,6 +109,14 @@ def main():
     parser_import.add_argument("--class-id", default=None, help="Force specific class_id for all images")
     parser_import.add_argument("--min-dim", type=int, default=224, help="Minimum image dimension (default: 224)")
 
+    # download
+    parser_download = subparsers.add_parser("download", help="Download open images from PlantVillage")
+    parser_download.add_argument("--limit", type=int, default=10, help="Number of images per class (default: 10)")
+    parser_download.add_argument("--dir", default="./data/downloads/plantvillage", help="Download target folder")
+    parser_download.add_argument("--workers", type=int, default=8, help="Concurrent download threads (default: 8)")
+    parser_download.add_argument("--auto-import", action="store_true", help="Automatically ingest downloaded images into database")
+    parser_download.add_argument("--min-dim", type=int, default=224, help="Minimum dimension for quality filter (default: 224)")
+
     # stats
     subparsers.add_parser("stats", help="Display database statistics")
 
@@ -90,6 +125,8 @@ def main():
         cmd_init(args)
     elif args.command == "import-dir":
         cmd_import(args)
+    elif args.command == "download":
+        cmd_download(args)
     elif args.command == "stats":
         cmd_stats(args)
 

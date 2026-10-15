@@ -1,178 +1,86 @@
-"""Data contracts and schemas for PlantDB."""
+"""Simplified data contracts for PlantDB (Open Datasets & Model Evaluation)."""
 
-from datetime import datetime
-from enum import Enum
-from typing import Any
+from datetime import datetime, timezone
+from typing import Any, Optional
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
 
 
-class Purpose(str, Enum):
-    """Release purpose."""
-    GALLERY = "gallery"
-    MODEL_EVALUATION = "model_evaluation"
-    COMMERCIAL_ML = "commercial_ml"
-
-
-class PermissionStatus(str, Enum):
-    """Rights clearance status."""
-    PENDING = "pending"
-    APPROVED = "approved"
-    REJECTED = "rejected"
-    WITHDRAWN = "withdrawn"
-
-
-class TaxonType(str, Enum):
-    """Type of organism in taxonomy."""
-    HOST = "host"
-    PATHOGEN = "pathogen"
-    OTHER = "other"
-
-
-class ConditionType(str, Enum):
-    """Type of physiological condition."""
-    DISEASE = "disease"
-    DISORDER = "disorder"
-    PEST = "pest"
-    HEALTHY = "healthy"
-
-
-class AnnotationState(str, Enum):
-    """Health/disease state of an observation asset."""
-    DISEASE = "disease"
-    HEALTHY = "healthy"
-    UNCERTAIN = "uncertain"
-
-
-class EvidenceLevel(str, Enum):
-    """Diagnostic evidence grounding level."""
-    SOURCE_LABEL = "source_label"
-    EXPERT_VISUAL = "expert_visual"
-    LABORATORY_SUPPORTED = "laboratory_supported"
-
-
-class PermissionDecision(BaseModel):
-    """Permission and licensing decision for an asset or batch."""
+class DiseaseClassRecord(BaseModel):
+    """Catalog disease or healthy state class."""
     model_config = ConfigDict(frozen=True)
 
-    rights_id: UUID
-    reviewer_id: str
-    reviewed_at: datetime
-    evidence_ref: str
-    can_store: bool | None = None
-    can_display: bool | None = None
-    can_transform: bool | None = None
-    can_train: bool | None = None
-    can_redistribute: bool | None = None
-    attribution: str
-    expires_at: datetime | None = None
-    status: PermissionStatus = PermissionStatus.PENDING
+    id: str  # e.g., 'tomato_early_blight'
+    crop: str  # 'Томат'
+    crop_en: str  # 'Tomato'
+    disease_name: str  # 'Альтернариоз'
+    disease_name_en: str  # 'Early Blight'
+    is_healthy: bool = False
+    description: Optional[str] = None
+    treatment_recommendations: Optional[str] = None
 
 
 class SourceRecord(BaseModel):
-    """Record of an acquired image from an upstream source."""
+    """Open dataset source and legal licensing."""
     model_config = ConfigDict(frozen=True)
 
-    source_id: UUID
-    source_version: str
-    external_id: str
-    rights_id: UUID
-    original_label: str
-    source_url: str | None = None
-    local_path: str | None = None
-    observation_id: UUID | None = None
+    id: str  # 'plantvillage', 'mendeley'
+    name: str
+    url: Optional[str] = None
+    license_type: str  # 'CC BY-SA 3.0', 'CC BY 4.0'
+    attribution: str
+    can_display: bool = True
+    can_use_for_eval: bool = True
 
 
-class AssetRecord(BaseModel):
-    """Master record of a stored original asset."""
+class QualityCheckResult(BaseModel):
+    """Automated image quality verification."""
+    is_valid: bool
+    width: int = 0
+    height: int = 0
+    mime_type: str = ""
+    sha256: str = ""
+    phash: Optional[str] = None
+    error: Optional[str] = None
+
+
+class ImageRecordData(BaseModel):
+    """Stored image asset record."""
     model_config = ConfigDict(frozen=True)
 
-    asset_id: UUID
-    original_sha256: str
-    pixel_sha256: str
-    storage_key: str
+    id: str
+    file_path: str
+    sha256: str
+    phash: Optional[str] = None
+    class_id: str
+    source_id: str
+    original_filename: Optional[str] = None
     width: int
     height: int
-    mime: str
-    observation_id: UUID | None = None
-    duplicate_group_id: UUID | None = None
-    status: str = "active"
+    mime_type: str
+    is_verified: bool = True
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
-class IngestReport(BaseModel):
-    """Summary of batch ingestion."""
-    new_assets: int = 0
-    reused_assets: int = 0
-    pending: int = 0
-    rejected: int = 0
-    error_records: list[dict[str, Any]] = Field(default_factory=list)
+class ModelEvalResult(BaseModel):
+    """Candidate pre-trained model prediction result."""
+    model_config = ConfigDict(frozen=True)
+
+    id: str
+    model_name: str
+    image_id: str
+    predicted_class_id: str
+    confidence: float
+    is_correct: bool
+    inference_time_ms: Optional[float] = None
+    evaluated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
-class QualityReport(BaseModel):
-    """Automated technical quality assessment."""
-    decodable: bool
-    width: int
-    height: int
-    flags: list[str] = Field(default_factory=list)
-
-
-class DuplicateCandidate(BaseModel):
-    """Potential perceptual duplicate candidate."""
-    left_asset_id: UUID
-    right_asset_id: UUID
-    distance: int
-    method: str = "phash64"
-
-
-class LabelMapping(BaseModel):
-    """Mapping of a source label to internal taxonomy."""
-    source_id: UUID
-    source_label: str
-    host_taxon_id: UUID
-    condition_id: UUID | None = None
-    state: AnnotationState
-    mapping_status: str = "approved"
-
-
-class ReviewDecision(BaseModel):
-    """Expert annotation decision."""
-    asset_id: UUID
-    expected_annotation_version: int
-    reviewer_id: str
-    state: AnnotationState
-    condition_ids: list[UUID] = Field(default_factory=list)
-    host_taxon_id: UUID
-    organ: str
-    evidence_level: EvidenceLevel
-    decision: str
-    notes: str | None = None
-
-
-class ReleasePolicy(BaseModel):
-    """Rules and parameters for dataset release."""
-    purpose: Purpose
-    seed: int = 42
-    fractions: tuple[float, float, float] = (0.70, 0.15, 0.15)
-    approved_only: bool = True
-    single_label_only: bool = True
-    require_second_review_for_test: bool = True
-
-
-class ReleaseManifest(BaseModel):
-    """Cryptographic manifest of a published release."""
-    release_id: UUID
-    version: str
-    purpose: Purpose
-    snapshot_id: UUID
-    taxonomy_version: str
-    policy_version: str
-    item_count: int
-    manifest_sha256: str
-
-
-class AuditReport(BaseModel):
-    """Audit verification report."""
-    failures: list[str] = Field(default_factory=list)
-    warnings: list[str] = Field(default_factory=list)
-    counts: dict[str, int] = Field(default_factory=dict)
+class IngestSummary(BaseModel):
+    """Summary of batch image import."""
+    total_found: int = 0
+    imported: int = 0
+    duplicates_skipped: int = 0
+    quality_rejected: int = 0
+    errors: list[dict[str, Any]] = Field(default_factory=list)

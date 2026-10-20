@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Plantix Brand Agro Palette */
+  --color-brand-primary: #059669;       /* emerald-600 */
+  --color-brand-primary-hover: #047857; /* emerald-700 */
+  --color-brand-surface: #ecfdf5;       /* emerald-50 */
+  --color-brand-dark: #064e3b;          /* emerald-900 */
+  --color-brand-light: #d1fae5;         /* emerald-100 */
+
+  /* Neutral Field Surfaces & Canvas */
+  --color-bg-canvas: #f8fafc;           /* slate-50 */
+  --color-bg-card: #ffffff;             /* white */
+  --color-border-card: #e2e8f0;         /* slate-200 */
+  --color-border-subtle: #f1f5f9;       /* slate-100 */
+
+  /* Outdoor High-Contrast Typography */
+  --color-text-main: #0f172a;           /* slate-900 (18:1 contrast on white) */
+  --color-text-secondary: #475569;      /* slate-600 (7:1 contrast on white) */
+  --color-text-muted: #64748b;          /* slate-500 (4.6:1 contrast on white) */
+
+  /* Semantic Phytosanitary Risk Badges */
+  --status-healthy-bg: #dcfce7;         /* emerald-100 */
+  --status-healthy-text: #166534;       /* emerald-800 */
+  --status-healthy-border: #86efac;     /* emerald-300 */
+
+  --status-moderate-bg: #fef3c7;        /* amber-100 */
+  --status-moderate-text: #92400e;      /* amber-800 */
+  --status-moderate-border: #fcd34d;    /* amber-300 */
+
+  --status-critical-bg: #fee2e2;        /* rose-100 */
+  --status-critical-text: #991b1b;      /* rose-800 */
+  --status-critical-border: #fca5a5;    /* rose-300 */
+
+  /* Safe Area Variables with Graceful Fallback */
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+}
+
+@layer base {
+  html {
+    height: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-color: #f1f5f9; /* Slate-100 desktop backdrop */
+    color: var(--color-text-main);
+    color-scheme: light;
+    accent-color: var(--color-brand-primary);
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    background-color: transparent;
+  }
+
+  /* Modern Web Typography: Balanced Headings & Pretty Paragraphs */
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+    color: var(--color-text-main);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer utilities {
+  /* Dynamic viewport height utilities */
+  .min-h-dvh {
+    min-height: 100dvh;
+  }
+
+  .h-dvh {
+    height: 100dvh;
+  }
+
+  /* Safe-area utility classes */
+  .pt-safe {
+    padding-top: max(0.75rem, env(safe-area-inset-top, 0.75rem));
+  }
+
+  .pb-safe {
+    padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem));
+  }
+
+  .pb-safe-nav {
+    padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Custom subtle scrollbar */
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Radar grid background */
+  .radar-grid-bg {
+    background-size: 24px 24px;
+    background-image: 
+      linear-gradient(to right, rgba(34, 197, 94, 0.15) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(34, 197, 94, 0.15) 1px, transparent 1px);
+  }
+}
+
+/* Animations for Scanner & Radar */
+@keyframes radarSweep {
+  0% {
+    transform: translateY(0%);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0.8;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.03);
+  }
+}
+
+.animate-radar-sweep {
+  animation: radarSweep 2s ease-in-out infinite alternate;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}

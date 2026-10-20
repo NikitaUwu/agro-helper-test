@@ -36,9 +36,16 @@ htmlcov/
 *.swp
 
 # Application Data (not in git according to plan)
-data/
+/data/
 contracts/
 evidence/
 *.db
 *.sqlite
 *.sqlite3
+
+# Frontend & Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/.vercel/
+.vercel/
+

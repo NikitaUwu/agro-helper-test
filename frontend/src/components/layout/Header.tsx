@@ -29,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({ activeTabTitle }) => {
                 Помощник агронома
               </span>
               <span className="px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-100 text-emerald-800 rounded">
-                Plantix AI
+                Агро ИИ
               </span>
             </div>
             <p className="text-xs text-slate-500 font-medium mt-0.5 leading-none">

@@ -24,7 +24,7 @@ const SCAN_STEPS = [
   'Инициализация сканирования...',
   'Сегментация контура листа...',
   'Поиск очагов некрозов и хлорозов...',
-  'Сравнение с базой патогенов Plantix AI...',
+  'Сравнение с базой патогенов...',
   'Формирование агрономического диагноза...',
 ];
 
@@ -139,7 +139,7 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
         onChange={handleFileUpload}
         accept="image/*"
         className="hidden"
-        aria-label="Загрузка фотографии листа"
+        aria-label="Загрузка фотографии растения"
       />
 
       {/* SCANNING OVERLAY VIEW */}
@@ -149,7 +149,7 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
             <div className="flex items-center space-x-2">
               <Scan className="w-4 h-4 text-emerald-400 animate-spin" />
               <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">
-                ИИ-анализ листа в процессе
+                ИИ-анализ растения в процессе
               </span>
             </div>
             <button
@@ -167,7 +167,7 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
             {/* Scanned Image */}
             <Image
               src={scanningImage}
-              alt="Сканируемый лист"
+              alt="Сканируемое растение"
               fill
               className="object-cover opacity-85"
             />
@@ -208,7 +208,7 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
 
           <div className="mt-3 text-center">
             <span className="text-[11px] text-slate-400">
-              Сеть сопоставляет морфологию поражения с эталонными симптомами PlantVillage
+              Сеть сопоставляет морфологию поражения с эталонными симптомами патогенов
             </span>
           </div>
         </div>
@@ -221,13 +221,13 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
           <div className="relative z-10">
             <span className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full bg-emerald-500/30 text-emerald-100 text-xs font-semibold mb-2 backdrop-blur-xs">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>ИИ-анализ листа растений</span>
+              <span>ИИ-анализ растений</span>
             </span>
             <h2 className="text-xl font-extrabold leading-tight tracking-tight text-white">
-              Определите болезнь листа за 2 секунды
+              Определите болезнь растения за 2 секунды
             </h2>
             <p className="text-xs text-emerald-100 mt-1 leading-relaxed">
-              Сфотографируйте повреждённый лист или выберите готовый образец для экспресс-анализа.
+              Сфотографируйте повреждённое растение или выберите готовый образец для экспресс-анализа.
             </p>
 
             {/* Action Buttons */}

@@ -29,7 +29,7 @@ console.log('====================================================\n');
 // ----------------------------------------------------
 // SCENARIO 1: Экспресс-диагностика и пресеты образцов
 // ----------------------------------------------------
-console.log('▶ СЦЕНАРИЙ 1: Экспресс-диагностика по фото и готовые образцы');
+console.log('▶ СЦЕНАРИЙ 1: Экспресс-диагностика растений по фото и готовые образцы');
 
 const demoSamplesFile = path.resolve(rootDir, 'src/data/demoSamples.ts');
 assert(fs.existsSync(demoSamplesFile), 'Файл demoSamples.ts существует');
@@ -50,9 +50,9 @@ for (const rawPath of imageMatches) {
 }
 
 // ----------------------------------------------------
-// SCENARIO 2: Карточка болезни и 4 вкладки рекомендаций
+// SCENARIO 2: Карточка болезни, 4 вкладки рекомендаций и 100% покрытие фото
 // ----------------------------------------------------
-console.log('\n▶ СЦЕНАРИЙ 2: Карточка заболевания и 4 вкладки рекомендаций');
+console.log('\n▶ СЦЕНАРИЙ 2: Карточка заболевания, 4 вкладки рекомендаций и 100% фото');
 
 const diseasesFile = path.resolve(rootDir, 'src/data/diseases.ts');
 assert(fs.existsSync(diseasesFile), 'Файл diseases.ts существует');
@@ -68,6 +68,21 @@ assert(diseasesContent.includes('chemical:'), 'Вкладка 4: Препара�
 // Проверяем подсчет заболеваний (25 классов)
 const diseaseIds = [...diseasesContent.matchAll(/id:\s*['"]([a-z_]+)['"],\s*cropId:/g)].map((m) => m[1]);
 assert(diseaseIds.length === 25, `База содержит ровно 25 состояний и заболеваний (найдено: ${diseaseIds.length})`);
+
+// Проверяем, что ВСЕ 25 имеют hasRealPhotos: true
+const realPhotoMatches = [...diseasesContent.matchAll(/hasRealPhotos:\s*(true|false)/g)].map((m) => m[1]);
+assert(realPhotoMatches.length === 25, `Найдено 25 флагов hasRealPhotos`);
+assert(realPhotoMatches.every((val) => val === 'true'), `ВСЕ 25 заболеваний в справочнике имеют реальные фото (hasRealPhotos = true)`);
+
+// Проверяем, что все фото в diseases.ts реально существуют на диске
+const diseasePhotoMatches = [...diseasesContent.matchAll(/encodeURI\(['"]([^'"]+)['"]\)/g)].map((m) => m[1]);
+assert(diseasePhotoMatches.length >= 25, `Всего путей к фото в diseases.ts: ${diseasePhotoMatches.length}`);
+for (const p of diseasePhotoMatches) {
+  const decoded = decodeURIComponent(p);
+  const relativePath = decoded.replace(/^\//, '');
+  const absolutePath = path.resolve(publicDir, relativePath);
+  assert(fs.existsSync(absolutePath), `Фото справочника существует на диске: ${path.basename(absolutePath)}`);
+}
 
 // ----------------------------------------------------
 // SCENARIO 3: Справочник культур и база знаний
@@ -103,23 +118,21 @@ assert(pageContent.includes('updateJournal'), 'Реализована функц
 assert(pageContent.includes('handleDeleteJournalEntry'), 'Реализовано удаление отдельных записей журнала');
 assert(pageContent.includes('handleClearJournal'), 'Реализована полная очистка журнала');
 
-// Симуляция структуры записи в журнале
-const mockEntry = {
-  id: 'test_entry_1',
-  timestamp: new Date().toISOString(),
-  formattedDateRu: '19 окт., 21:00',
-  cropId: 'tomato',
-  cropNameRu: 'Томат',
-  conditionId: 'tomato_late_blight',
-  conditionNameRu: 'Фитофтороз томатов',
-  risk: 'critical',
-  riskLabelRu: 'Критично',
-  confidence: 96.4,
-  imageSrc: '/data/plantvillage/Tomato___Late_blight/test.jpg',
-};
+// ----------------------------------------------------
+// SCENARIO 5: Проверка удаления "PLANTIX AI" и заголовок "Экспресс-диагностика растений"
+// ----------------------------------------------------
+console.log('\n▶ СЦЕНАРИЙ 5: Проверка чистоты бренда и заголовков экрана');
 
-assert(mockEntry.confidence > 90, 'Уверенность ИИ корректно фиксируется в записи');
-assert(mockEntry.risk === 'critical', 'Статус критичности корректно маркируется');
+const headerFile = path.resolve(rootDir, 'src/components/layout/Header.tsx');
+const headerContent = fs.readFileSync(headerFile, 'utf-8');
+assert(!headerContent.includes('Plantix AI'), 'В Header.tsx полностью удалена надпись "Plantix AI"');
+assert(headerContent.includes('Агро ИИ'), 'В Header.tsx отображается обновленный бейдж "Агро ИИ"');
+
+const scannerFile = path.resolve(rootDir, 'src/components/Scanner.tsx');
+const scannerContent = fs.readFileSync(scannerFile, 'utf-8');
+assert(!scannerContent.includes('Plantix AI'), 'В Scanner.tsx полностью удалена надпись "Plantix AI"');
+
+assert(pageContent.includes('Экспресс-диагностика растений'), 'Заголовок на экране диагностики: "Экспресс-диагностика растений"');
 
 console.log('\n====================================================');
 console.log(`🎉 ВСЕ СЦЕНАРИИ УСПЕШНО ПРОЙДЕНЫ! (${passedTests}/${totalTests} проверок)`);

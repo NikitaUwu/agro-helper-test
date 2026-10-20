@@ -115,7 +115,7 @@ export default function Home() {
     }
     switch (activeTab) {
       case 'diagnostics':
-        return 'Экспресс-диагностика листа';
+        return 'Экспресс-диагностика растений';
       case 'catalog':
         return 'Справочник культур и патогенов';
       case 'journal':

@@ -394,8 +394,10 @@ export const DISEASES: DiseaseCondition[] = [
         'Внесение фунгицида Квадрис в борозды при посадке.'
       ]
     },
-    photos: [],
-    hasRealPhotos: false
+    photos: [
+      encodeURI('/data/catalog/potato_black_scurf_1.jpg')
+    ],
+    hasRealPhotos: true
   },
   {
     id: 'potato_common_scab',
@@ -432,8 +434,10 @@ export const DISEASES: DiseaseCondition[] = [
         'Применение фунгицидно-дезинфицирующих составов ТМТД для семенных фондов.'
       ]
     },
-    photos: [],
-    hasRealPhotos: false
+    photos: [
+      encodeURI('/data/catalog/potato_common_scab_1.jpg')
+    ],
+    hasRealPhotos: true
   },
 
   // ==========================================
@@ -473,8 +477,11 @@ export const DISEASES: DiseaseCondition[] = [
         'Опрыскивание микроэлементами в хелатной форме (бор, железо, марганец).'
       ]
     },
-    photos: [],
-    hasRealPhotos: false
+    photos: [
+      encodeURI('/data/catalog/cucumber_healthy_1.jpg'),
+      encodeURI('/data/catalog/cucumber_healthy_2.jpg')
+    ],
+    hasRealPhotos: true
   },
   {
     id: 'cucumber_powdery_mildew',
@@ -511,8 +518,10 @@ export const DISEASES: DiseaseCondition[] = [
         'Препарат Квадрис (азоксистробин) с коротким сроком ожидания.'
       ]
     },
-    photos: [],
-    hasRealPhotos: false
+    photos: [
+      encodeURI('/data/catalog/cucumber_powdery_mildew_1.jpg')
+    ],
+    hasRealPhotos: true
   },
   {
     id: 'cucumber_downy_mildew',
@@ -549,8 +558,11 @@ export const DISEASES: DiseaseCondition[] = [
         'Препараты Консенто или Ордан СП.'
       ]
     },
-    photos: [],
-    hasRealPhotos: false
+    photos: [
+      encodeURI('/data/catalog/cucumber_downy_mildew_1.jpg'),
+      encodeURI('/data/catalog/cucumber_downy_mildew_2.jpg')
+    ],
+    hasRealPhotos: true
   },
   {
     id: 'cucumber_anthracnose',
@@ -587,8 +599,11 @@ export const DISEASES: DiseaseCondition[] = [
         'Препарат Квадрис при первых очагах инфекции.'
       ]
     },
-    photos: [],
-    hasRealPhotos: false
+    photos: [
+      encodeURI('/data/catalog/cucumber_anthracnose_1.jpg'),
+      encodeURI('/data/catalog/cucumber_anthracnose_2.jpg')
+    ],
+    hasRealPhotos: true
   },
   {
     id: 'cucumber_angular_leaf_spot',
@@ -625,8 +640,10 @@ export const DISEASES: DiseaseCondition[] = [
         'Препарат Фитолавин (стрептомициновый комплекс) при сильном бактериальном поражении.'
       ]
     },
-    photos: [],
-    hasRealPhotos: false
+    photos: [
+      encodeURI('/data/catalog/cucumber_angular_spot_1.jpg')
+    ],
+    hasRealPhotos: true
   },
 
   // ==========================================
@@ -842,8 +859,11 @@ export const DISEASES: DiseaseCondition[] = [
         'Фунгицид Скор или Раёк в чередовании с препаратами серы.'
       ]
     },
-    photos: [],
-    hasRealPhotos: false
+    photos: [
+      encodeURI('/data/catalog/apple_powdery_mildew_1.jpg'),
+      encodeURI('/data/catalog/apple_powdery_mildew_2.jpg')
+    ],
+    hasRealPhotos: true
   },
 
   // ==========================================
@@ -883,8 +903,11 @@ export const DISEASES: DiseaseCondition[] = [
         'Внесение хелата цинка и меди по вегетации.'
       ]
     },
-    photos: [],
-    hasRealPhotos: false
+    photos: [
+      encodeURI('/data/catalog/wheat_healthy_1.jpg'),
+      encodeURI('/data/catalog/wheat_healthy_2.jpg')
+    ],
+    hasRealPhotos: true
   },
   {
     id: 'wheat_stripe_rust',
@@ -920,8 +943,10 @@ export const DISEASES: DiseaseCondition[] = [
         'Комбинированный фунгицид Колосаль Про (пропиконазол + тебуконазол).'
       ]
     },
-    photos: [],
-    hasRealPhotos: false
+    photos: [
+      encodeURI('/data/catalog/wheat_stripe_rust_1.jpg')
+    ],
+    hasRealPhotos: true
   },
   {
     id: 'wheat_leaf_rust',
@@ -957,8 +982,11 @@ export const DISEASES: DiseaseCondition[] = [
         'Препарат Рекс С (эпоксиконазол).'
       ]
     },
-    photos: [],
-    hasRealPhotos: false
+    photos: [
+      encodeURI('/data/catalog/wheat_leaf_rust_1.jpg'),
+      encodeURI('/data/catalog/wheat_leaf_rust_2.jpg')
+    ],
+    hasRealPhotos: true
   },
   {
     id: 'wheat_powdery_mildew',
@@ -994,8 +1022,11 @@ export const DISEASES: DiseaseCondition[] = [
         'Фунгицид Импакт (флутриафол) в фазу кущения.'
       ]
     },
-    photos: [],
-    hasRealPhotos: false
+    photos: [
+      encodeURI('/data/catalog/wheat_powdery_mildew_1.jpg'),
+      encodeURI('/data/catalog/wheat_powdery_mildew_2.jpg')
+    ],
+    hasRealPhotos: true
   },
   {
     id: 'wheat_septoria_tritici_blotch',
@@ -1031,8 +1062,11 @@ export const DISEASES: DiseaseCondition[] = [
         'Обработка по колосу препаратом Прозаро (протиоконазол + тебуконазол).'
       ]
     },
-    photos: [],
-    hasRealPhotos: false
+    photos: [
+      encodeURI('/data/catalog/wheat_septoria_1.jpg'),
+      encodeURI('/data/catalog/wheat_septoria_2.jpg')
+    ],
+    hasRealPhotos: true
   }
 ];
 

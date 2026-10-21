@@ -1,0 +1,310 @@
+{
+  "version": "five-crops-v1",
+  "modelRevision": "06ebf5e308e100fd000d738c42b059ebb5f58a16",
+  "labels": [
+    {
+      "index": 0,
+      "rawLabel": "Apple___Apple_scab",
+      "modelCrop": "Apple",
+      "cropId": "apple",
+      "conditionId": "apple_scab",
+      "enabled": true
+    },
+    {
+      "index": 1,
+      "rawLabel": "Apple___Black_rot",
+      "modelCrop": "Apple",
+      "cropId": "apple",
+      "conditionId": "apple_black_rot",
+      "enabled": true
+    },
+    {
+      "index": 2,
+      "rawLabel": "Apple___Cedar_apple_rust",
+      "modelCrop": "Apple",
+      "cropId": "apple",
+      "conditionId": "apple_cedar_rust",
+      "enabled": true
+    },
+    {
+      "index": 3,
+      "rawLabel": "Apple___healthy",
+      "modelCrop": "Apple",
+      "cropId": "apple",
+      "conditionId": "apple_healthy",
+      "enabled": true
+    },
+    {
+      "index": 4,
+      "rawLabel": "Blueberry___healthy",
+      "modelCrop": "Blueberry",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 5,
+      "rawLabel": "Cherry_(including_sour)___Powdery_mildew",
+      "modelCrop": "Cherry_(including_sour)",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 6,
+      "rawLabel": "Cherry_(including_sour)___healthy",
+      "modelCrop": "Cherry_(including_sour)",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 7,
+      "rawLabel": "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+      "modelCrop": "Corn_(maize)",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 8,
+      "rawLabel": "Corn_(maize)___Common_rust_",
+      "modelCrop": "Corn_(maize)",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 9,
+      "rawLabel": "Corn_(maize)___Northern_Leaf_Blight",
+      "modelCrop": "Corn_(maize)",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 10,
+      "rawLabel": "Corn_(maize)___healthy",
+      "modelCrop": "Corn_(maize)",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 11,
+      "rawLabel": "Grape___Black_rot",
+      "modelCrop": "Grape",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 12,
+      "rawLabel": "Grape___Esca_(Black_Measles)",
+      "modelCrop": "Grape",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 13,
+      "rawLabel": "Grape___Leaf_blight_(Isariopsis_Leaf_Spot)",
+      "modelCrop": "Grape",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 14,
+      "rawLabel": "Grape___healthy",
+      "modelCrop": "Grape",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 15,
+      "rawLabel": "Orange___Haunglongbing_(Citrus_greening)",
+      "modelCrop": "Orange",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 16,
+      "rawLabel": "Peach___Bacterial_spot",
+      "modelCrop": "Peach",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 17,
+      "rawLabel": "Peach___healthy",
+      "modelCrop": "Peach",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 18,
+      "rawLabel": "Pepper,_bell___Bacterial_spot",
+      "modelCrop": "Pepper,_bell",
+      "cropId": "pepper",
+      "conditionId": "pepper_bacterial_spot",
+      "enabled": true
+    },
+    {
+      "index": 19,
+      "rawLabel": "Pepper,_bell___healthy",
+      "modelCrop": "Pepper,_bell",
+      "cropId": "pepper",
+      "conditionId": "pepper_healthy",
+      "enabled": true
+    },
+    {
+      "index": 20,
+      "rawLabel": "Potato___Early_blight",
+      "modelCrop": "Potato",
+      "cropId": "potato",
+      "conditionId": "potato_early_blight",
+      "enabled": true
+    },
+    {
+      "index": 21,
+      "rawLabel": "Potato___Late_blight",
+      "modelCrop": "Potato",
+      "cropId": "potato",
+      "conditionId": "potato_late_blight",
+      "enabled": true
+    },
+    {
+      "index": 22,
+      "rawLabel": "Potato___healthy",
+      "modelCrop": "Potato",
+      "cropId": "potato",
+      "conditionId": "potato_healthy",
+      "enabled": true
+    },
+    {
+      "index": 23,
+      "rawLabel": "Raspberry___healthy",
+      "modelCrop": "Raspberry",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 24,
+      "rawLabel": "Soybean___healthy",
+      "modelCrop": "Soybean",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 25,
+      "rawLabel": "Squash___Powdery_mildew",
+      "modelCrop": "Squash",
+      "cropId": null,
+      "conditionId": null,
+      "enabled": false
+    },
+    {
+      "index": 26,
+      "rawLabel": "Strawberry___Leaf_scorch",
+      "modelCrop": "Strawberry",
+      "cropId": "strawberry",
+      "conditionId": "strawberry_leaf_scorch",
+      "enabled": true
+    },
+    {
+      "index": 27,
+      "rawLabel": "Strawberry___healthy",
+      "modelCrop": "Strawberry",
+      "cropId": "strawberry",
+      "conditionId": "strawberry_healthy",
+      "enabled": true
+    },
+    {
+      "index": 28,
+      "rawLabel": "Tomato___Bacterial_spot",
+      "modelCrop": "Tomato",
+      "cropId": "tomato",
+      "conditionId": "tomato_bacterial_spot",
+      "enabled": true
+    },
+    {
+      "index": 29,
+      "rawLabel": "Tomato___Early_blight",
+      "modelCrop": "Tomato",
+      "cropId": "tomato",
+      "conditionId": "tomato_early_blight",
+      "enabled": true
+    },
+    {
+      "index": 30,
+      "rawLabel": "Tomato___Late_blight",
+      "modelCrop": "Tomato",
+      "cropId": "tomato",
+      "conditionId": "tomato_late_blight",
+      "enabled": true
+    },
+    {
+      "index": 31,
+      "rawLabel": "Tomato___Leaf_Mold",
+      "modelCrop": "Tomato",
+      "cropId": "tomato",
+      "conditionId": "tomato_leaf_mold",
+      "enabled": true
+    },
+    {
+      "index": 32,
+      "rawLabel": "Tomato___Septoria_leaf_spot",
+      "modelCrop": "Tomato",
+      "cropId": "tomato",
+      "conditionId": "tomato_septoria_leaf_spot",
+      "enabled": true
+    },
+    {
+      "index": 33,
+      "rawLabel": "Tomato___Spider_mites Two-spotted_spider_mite",
+      "modelCrop": "Tomato",
+      "cropId": "tomato",
+      "conditionId": "tomato_spider_mites",
+      "enabled": true
+    },
+    {
+      "index": 34,
+      "rawLabel": "Tomato___Target_Spot",
+      "modelCrop": "Tomato",
+      "cropId": "tomato",
+      "conditionId": "tomato_target_spot",
+      "enabled": true
+    },
+    {
+      "index": 35,
+      "rawLabel": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+      "modelCrop": "Tomato",
+      "cropId": "tomato",
+      "conditionId": "tomato_yellow_leaf_curl",
+      "enabled": true
+    },
+    {
+      "index": 36,
+      "rawLabel": "Tomato___Tomato_mosaic_virus",
+      "modelCrop": "Tomato",
+      "cropId": "tomato",
+      "conditionId": "tomato_mosaic_virus",
+      "enabled": true
+    },
+    {
+      "index": 37,
+      "rawLabel": "Tomato___healthy",
+      "modelCrop": "Tomato",
+      "cropId": "tomato",
+      "conditionId": "tomato_healthy",
+      "enabled": true
+    }
+  ]
+}

@@ -1,7 +1,8 @@
 // frontend/src/data/crops.ts
 import { CropInfo, CropId } from '@/types';
+import { DISEASES } from './diseases';
 
-export const CROPS: CropInfo[] = [
+const LEGACY_CROPS: CropInfo[] = [
   {
     id: 'tomato',
     nameRu: 'Томат',
@@ -93,6 +94,23 @@ export const CROPS: CropInfo[] = [
     ]
   }
 ];
+
+export const CROPS: CropInfo[] = [...LEGACY_CROPS,
+  {
+    id: 'pepper', nameRu: 'Сладкий перец', scientificName: 'Capsicum annuum', eppoCode: 'CPSAN',
+    descriptionRu: 'Овощная культура открытого и защищённого грунта. Модель различает бактериальную пятнистость и лист без характерных поражений.',
+    diseaseCount: 1, icon: 'Sprout', healthyConditionId: 'pepper_healthy',
+    riskOverviewRu: 'Другие заболевания и повреждения перца моделью не охвачены.',
+    preventionTipsRu: ['Используйте здоровую рассаду.', 'Избегайте длительного увлажнения листьев.', 'Осматривайте обе стороны листа и соседние растения.'],
+  },
+  {
+    id: 'strawberry', nameRu: 'Земляника', scientificName: 'Fragaria × ananassa', eppoCode: 'FRAAN',
+    descriptionRu: 'Земляника садовая, обычно называемая клубникой. Модель различает бурую пятнистость (Leaf scorch) и лист без характерных поражений.',
+    diseaseCount: 1, icon: 'Leaf', healthyConditionId: 'strawberry_healthy',
+    riskOverviewRu: 'Модель не оценивает болезни ягод, корней и остальные причины пятнистостей.',
+    preventionTipsRu: ['Не загущайте посадки.', 'Используйте здоровый посадочный материал.', 'Не допускайте длительного увлажнения листьев.'],
+  },
+].map(crop => ({ ...crop, diseaseCount: DISEASES.filter(condition => condition.cropId === crop.id && !condition.isHealthy).length })) as CropInfo[];
 
 export const CROP_MAP: Record<CropId, CropInfo> = CROPS.reduce((acc, crop) => {
   acc[crop.id] = crop;

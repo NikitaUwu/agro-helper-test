@@ -49,3 +49,8 @@ frontend/.next/
 frontend/.vercel/
 .vercel/
 
+
+# Local execution artifacts
+.superpowers/
+frontend/test-results/
+frontend/playwright-report/

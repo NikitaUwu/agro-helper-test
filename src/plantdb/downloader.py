@@ -9,6 +9,7 @@ from typing import Dict, List, Optional
 import urllib.request
 
 from plantdb.ingest import ingest_directory
+from plantdb.registry import model_labels
 
 PLANTVILLAGE_REPO = "spMohanty/PlantVillage-Dataset"
 PLANTVILLAGE_RAW_BASE = "https://raw.githubusercontent.com/spMohanty/PlantVillage-Dataset/master/raw/color"
@@ -31,6 +32,9 @@ DEFAULT_TARGET_CLASSES = [
     "Apple___Black_rot",
     "Apple___Cedar_apple_rust",
 ]
+
+
+DEFAULT_TARGET_CLASSES = [item['rawLabel'] for item in model_labels() if item['enabled']]
 
 
 def fetch_folder_file_list(folder_name: str) -> List[Dict[str, str]]:

@@ -1,0 +1,6 @@
+Model and Space: Rodayna Emad Mohamed, CC BY-SA 4.0.
+https://huggingface.co/rodynaemad/plant-disease-dinov2-small
+https://huggingface.co/spaces/rodynaemad/plant-disease-scanner
+License: https://creativecommons.org/licenses/by-sa/4.0/
+Redistributed unchanged INT8 ONNX and centroid assets. UI integration is project-specific.
+Backbone: Meta DINOv2, Apache 2.0. Training dataset: PlantVillage (Hughes and Salathe), CC BY-SA.

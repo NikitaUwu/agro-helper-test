@@ -1,7 +1,9 @@
 // frontend/src/data/diseases.ts
 import { DiseaseCondition } from '@/types';
+import modelConditions from '../../../config/model_conditions.json';
+import modelPhotos from './modelPhotos.json';
 
-export const DISEASES: DiseaseCondition[] = [
+const LEGACY_DISEASES: DiseaseCondition[] = [
   // ==========================================
   // ТОМАТ (5 классов)
   // ==========================================
@@ -1069,6 +1071,19 @@ export const DISEASES: DiseaseCondition[] = [
     hasRealPhotos: true
   }
 ];
+
+const photos = modelPhotos as Record<string, string[]>;
+export const DISEASES: DiseaseCondition[] = [
+  ...LEGACY_DISEASES,
+  ...modelConditions.map(condition => ({ ...condition, photos: photos[condition.id] || [], hasRealPhotos: Boolean(photos[condition.id]?.length) }) as DiseaseCondition),
+].map(condition => condition.isHealthy ? {
+  ...condition,
+  nameRu: `${condition.cropNameRu}: лист без характерных поражений`,
+  pathogenRu: 'По внешнему виду листа; скрытые инфекции не исключены',
+  targetOrganRu: 'листья',
+  summaryRu: 'На снимке не видно характерных признаков известных модели поражений. Это не подтверждает отсутствие патогенов или здоровье всего растения.',
+  riskLabelRu: 'Без признаков',
+} : condition);
 
 export const DISEASE_MAP: Record<string, DiseaseCondition> = DISEASES.reduce((acc, disease) => {
   acc[disease.id] = disease;

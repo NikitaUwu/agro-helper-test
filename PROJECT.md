@@ -1,175 +1,117 @@
-# Project: «Помощник агронома» (Agronomist Assistant)
+# «Помощник агронома»
 
-## Architecture
-- **Framework**: Next.js 14+ (App Router), React 18/19, TypeScript
-- **Styling**: Tailwind CSS (mobile-first, Plantix agro color palette, dynamic viewport units `100dvh`)
-- **Icons**: Lucide React
-- **Client Storage**: `localStorage` (`agronomist_field_journal_v1`) with zero external DB dependencies
-- **Asset Serving**: `frontend/public/data/plantvillage/` for 60 real CC BY-SA 3.0 leaf photos
-- **Testing**: Playwright / Vitest automated test suite covering all 4 user scenarios
+## Реализованное состояние — 21 октября 2026
 
-### Data Flow
-1. **User Input / Demo Sample** → **Scanner Engine** (multi-phase animation: grid, radar sweep, analysis 1.8-2.3s).
-2. **Diagnosis Result** → Matched with `frontend/src/data/diseases.ts` (confidence %, pathogen, risk badge).
-3. **Auto-Save** → Synced to `localStorage` journal record (`JournalEntry`).
-4. **Disease Card** → 4-tab breakdown (Симптомы, Био-защита, Агротехника, Препараты).
-5. **Catalog** → 5 crops (томат, картофель, огурец, яблоня, пшеница) with pill filter & search.
-6. **Field Journal** → Chronological history with reopen, view, and delete capabilities.
+Приложение выполняет настоящий локальный анализ фотографии листа через DINOv2-small. Фиктивные диагнозы, двухсекундный таймер и заранее заданные проценты удалены. Три прежние вкладки и основные элементы интерфейса сохранены.
 
----
+| Культура для анализа | Количество состояний, включая healthy |
+|---|---:|
+| Томат | 10 |
+| Картофель | 3 |
+| Яблоня | 4 |
+| Сладкий перец | 2 |
+| Земляника садовая | 2 |
+| **Всего** | **21** |
 
-## Feature Inventory
-| # | Feature | Description | Milestone | Source |
-|---|---------|-------------|-----------|--------|
-| 1 | Mobile-First Responsive Layout | 360-430px smartphone layout up to desktop (1280px+), safe-area insets, dvh units | M1 | R1 |
-| 2 | 100% Russian UI Localization | Complete Russian UI text, agricultural terminology, no English placeholders | M1 | R1 |
-| 3 | Plantix Visual Design System | Agro natural palette (emerald/green/slate), status badges (Здорово / Умеренно / Критично) | M1 | R1 |
-| 4 | Bottom Navigation Bar | 3 primary tabs: Диагностика, Справочник, Полевой журнал with active indicators | M1 | R1 |
-| 5 | PlantVillage Photos Integration | 60 open photos (Apple, Potato, Tomato) integrated into public web assets | M1 | R3 |
-| 6 | 5-Crop Taxonomy & Knowledge Base | Data for Tomato, Potato, Apple, Cucumber, Wheat with symptoms & treatments | M1 | R3 |
-| 7 | Curated Leaf Sample Presets | 9 ready-to-test leaf samples (3 tomato, 3 potato, 3 apple) for 1-click testing | M1 | R2.1 |
-| 8 | Photo Upload & Camera Capture | Custom photo upload with client-side preview and file validation | M2 | R2.1 |
-| 9 | Interactive Radar Scanner | Multi-phase radar/grid scanning animation with realistic ~2s analysis delay | M2 | R2.1 |
-| 10 | Diagnosis Screen | Disease title, pathogen, confidence %, risk badge, and actionable alerts | M2 | R2.1 |
-| 11 | Disease Card & Symptoms Gallery | Full leaf photo gallery with real damage samples | M2 | R2.2 |
-| 12 | 4 Treatment Tabs | Симптомы, Биологический контроль, Агротехника, Препараты | M2 | R2.2 |
-| 13 | Crop Catalog & Filter | 5 crops filterable with disease cards and healthy states | M3 | R2.3 |
-| 14 | Agronomist Prevention Tips | Seasonal prevention and agronomist pro-tips for each crop | M3 | R2.3 |
-| 15 | Field Journal Auto-Save | Automatic persistent saving of every diagnosis to localStorage | M3 | R2.4 |
-| 16 | Field Journal History List | Date, crop, diagnosis status, risk badge, thumbnail, and entry deletion | M3 | R2.4 |
-| 17 | Reopen Past Diagnosis | Ability to tap past entry and reopen full disease & recommendation card | M3 | R2.4 |
-| 18 | E2E Testing Suite | Playwright/Vitest automated tests verifying all 4 scenarios across Tiers 1-4 | M4 | R4 |
-| 19 | Build & Type Checking | Clean `npm.cmd run build` with zero TypeScript errors or warnings | M5 | R4 |
-| 20 | Vercel Deployment & Git | `vercel.json` configuration, build scripts, and git commit | M5 | R5 |
+Справочник содержит **7 культур / 34 состояния**. Огурец, пшеница, парша и ризоктониоз картофеля, мучнистая роса яблони остаются доступными для чтения, но не поддерживаются моделью. Выходы остальных культур модели не подменяются ближайшим разрешённым диагнозом.
 
----
+## Архитектура
 
-## Milestones
-| # | Name | Scope | Dependencies | Status |
-|---|------|-------|-------------|--------|
-| M1 | Frontend Foundation, Design System & Data Assets | Next.js App Router, Tailwind, mobile frame, bottom nav, PlantVillage images, taxonomy data | none | IN_PROGRESS |
-| M2 | Express Diagnostics & Disease Details (Scenarios 1 & 2) | Photo upload/samples, radar scanner, diagnosis screen, 4-tab disease recommendations | M1 | PLANNED |
-| M3 | Knowledge Catalog & Field Journal (Scenarios 3 & 4) | 5 crops catalog, filter, tips, localStorage field journal (auto-save, reopen, delete) | M1, M2 | PLANNED |
-| M4 | E2E Testing Suite (Tiers 1-4) | Comprehensive automated tests for all 4 scenarios, test runner, TEST_READY.md | M1-M3 | PLANNED |
-| M5 | Final Milestone & Delivery | Pass 100% tests, adversarial hardening, clean build, git commit, vercel.json | M1-M4 | PLANNED |
+- `frontend/`: Next.js 14.2.35 / React 18 / TypeScript / Tailwind.
+- `config/model_labels.json`: все 38 индексов модели, 21 разрешённое состояние, стабильные ID.
+- `config/model_conditions.json`: 9 добавленных карточек; ими пользуются frontend и Python seed.
+- `frontend/src/lib/diagnosis/`: проверка изображения, Canvas-предобработка, численная политика и typed Worker client.
+- `frontend/public/diagnosis.worker.js`: настоящий ONNX inference в отдельном Worker; только WASM, один поток, GPU не требуется.
+- `frontend/public/models/dinov2-small/<revision>/`: ONNX INT8, центроиды, конфиги, manifest с SHA-256, лицензии.
+- `frontend/public/ort/1.30.0/`: зафиксированный WASM Runtime и MIT-лицензия.
+- `frontend/src/lib/journal.ts`: совместимость старого ключа `agronomist_field_journal_v1`, версия записи 2, происхождение и thumbnail.
+- `src/plantdb/`: отдельный Python CLI / SQLAlchemy для каталога и импорта, не сервер распознавания. Добавление классов идемпотентно, схема четырёх таблиц сохранена.
 
----
+Модель и Runtime не включены в исходный JS-бандл страницы. Загрузка начинается при анализе; Cache Storage по ревизии уменьшает повторную загрузку весов. При запрете cache анализ работает через сеть. Полная офлайн-работа сайта без service worker не заявляется.
 
-## Interface Contracts
+Фото не отправляется внешнему API. Камера и загрузка используют отдельные file inputs; на устройстве с ограничениями браузер может открыть обычный выбор файла.
 
-### 1. Data Model (`frontend/src/types/index.ts`)
-```typescript
-export type RiskSeverity = 'healthy' | 'moderate' | 'critical'; // Здорово | Умеренно | Критично
+## Поведение анализа
 
-export interface TreatmentRecommendations {
-  symptoms: string[];
-  biological: string[];
-  agrotechnical: string[];
-  chemical: string[];
-}
+Принимаются JPEG/PNG/WebP до 10 МиБ и 20 мегапикселей. Ориентация учитывается при декодировании. Короткая сторона → 256, центральный crop 224×224, RGB и ImageNet-нормализация. Прозрачность сводится на белый фон.
 
-export interface DiseaseCondition {
-  id: string; // e.g. "tomato_late_blight"
-  cropId: 'tomato' | 'potato' | 'apple' | 'cucumber' | 'wheat';
-  cropNameRu: string; // "Томат", etc.
-  nameRu: string; // "Фитофтороз томатов"
-  pathogenRu: string; // "Гриб Phytophthora infestans"
-  risk: RiskSeverity;
-  riskLabelRu: 'Здорово' | 'Умеренно' | 'Критично';
-  summaryRu: string;
-  recommendations: TreatmentRecommendations;
-  photos: string[]; // paths in /data/plantvillage/ or /samples/
-}
+Модель: `rodynaemad/plant-disease-dinov2-small`, ревизия `06ebf5e308e100fd000d738c42b059ebb5f58a16`.
+Space/centroids: `b26e704bd72c2fe05632ea6f7be680a2eca0d8f5`.
 
-export interface DemoSample {
-  id: string;
-  cropId: 'tomato' | 'potato' | 'apple';
-  cropNameRu: string;
-  titleRu: string;
-  expectedConditionId: string;
-  imagePath: string;
-  confidence: number; // e.g. 96
-}
+Ответ принимается только после проверки:
 
-export interface JournalEntry {
-  id: string; // UUID or timestamp
-  timestamp: string; // ISO string
-  formattedDateRu: string; // "19 октября 2026, 12:30"
-  cropId: string;
-  cropNameRu: string;
-  conditionId: string;
-  conditionNameRu: string;
-  risk: RiskSeverity;
-  confidence: number;
-  imagePreview: string; // base64 or static url
-  notes?: string;
-}
+1. Формы и конечности logits/features.
+2. Косинусного сходства со всеми 38 нормированными центроидами (порог `0.699429452419281`).
+3. Поддержки глобального top1 и совпадения выбранной культуры.
+4. Score ≥0.85 и margin ≥0.20.
+
+Это исходная **экспериментальная** политика, не калиброванная вероятность правильного диагноза. Softmax вычисляется по всем 38 классам без фильтрации и перенормировки. Если результат не подходит, показывается отказ с возможностью повторить снимок. Ошибки, отказ и отмена не сохраняются как установленная болезнь.
+
+Healthy означает отсутствие характерных видимых признаков известных модели состояний на листе. Модель не подтверждает отсутствие патогенов, не оценивает всё растение, тяжесть поражения, клубни, корни или плоды. Рекомендации берутся из справочника; модель их не генерирует.
+
+## Журнал
+
+Старые записи сохраняются и помечаются как прежняя демонстрация: их старые проценты не становятся модельными оценками. Новый accepted-результат сохраняет model/policy/preprocessing revision и JPEG-thumbnail ≤640 px / ≤80 КиБ. Полный preview остаётся только на время просмотра и освобождается при закрытии. Переполнение localStorage сообщается пользователю; ложной отметки «В журнале» нет.
+
+Справочная карточка открывается без выдуманного score и без автоматического добавления как анализа. Её можно сохранить вручную с происхождением «Из справочника».
+
+## Запуск
+
+Обычное окружение Node.js 22+:
+
+```powershell
+cd frontend
+npm ci
+npm run dev
 ```
 
-### 2. State & Storage API (`frontend/src/lib/journal.ts`)
-```typescript
-export function getJournalEntries(): JournalEntry[];
-export function saveJournalEntry(entry: Omit<JournalEntry, 'id' | 'timestamp' | 'formattedDateRu'>): JournalEntry;
-export function deleteJournalEntry(id: string): void;
-export function clearJournal(): void;
+Production:
+
+```powershell
+npm run build
+npm run start -- --hostname 127.0.0.1 --port 3001
 ```
 
----
+`build` запускает `prepare-model.mjs`: проверяет зафиксированные контрольные суммы, при отсутствии файла скачивает именно указанную ревизию, подготавливает соответствующие WASM-файлы. Команда не отключает TLS. В корпоративной сети используется доверенный CA через `NODE_EXTRA_CA_CERTS`, если это требуется её настройками.
 
-## Code Layout
+Для Vercel сохранить выбранную текущим проектом root directory: при корне репозитория используется корневой `vercel.json`, при `frontend/` — вложенный. Общий `config/` должен входить в доступные build sources (`externalDir` включён). Python и GPU для web-inference не нужны.
+
+## Проверки
+
+```powershell
+cd frontend
+npm test
+npm run test:unit
+npm run test:e2e
+npm run test:model
+npm run build
 ```
-c:\Users\nikit\Desktop\Помощник агронома\
-├── PROJECT.md
-├── vercel.json
-├── config/
-│   └── taxonomy_seed.json
-├── data/
-│   └── downloads/plantvillage/
-└── frontend/
-    ├── package.json
-    ├── tsconfig.json
-    ├── tailwind.config.ts
-    ├── next.config.mjs
-    ├── vercel.json
-    ├── public/
-    │   ├── data/plantvillage/
-    │   └── samples/
-    ├── src/
-    │   ├── types/
-    │   │   └── index.ts
-    │   ├── data/
-    │   │   ├── crops.ts
-    │   │   ├── diseases.ts
-    │   │   └── demoSamples.ts
-    │   ├── lib/
-    │   │   └── journal.ts
-    │   ├── components/
-    │   │   ├── layout/
-    │   │   │   ├── Header.tsx
-    │   │   │   ├── BottomNav.tsx
-    │   │   │   └── MobileFrame.tsx
-    │   │   ├── diagnosis/
-    │   │   │   ├── ImageUploader.tsx
-    │   │   │   ├── DemoGallery.tsx
-    │   │   │   ├── RadarScanner.tsx
-    │   │   │   └── DiagnosisResult.tsx
-    │   │   ├── disease/
-    │   │   │   ├── DiseaseCard.tsx
-    │   │   │   └── RecommendationTabs.tsx
-    │   │   ├── catalog/
-    │   │   │   ├── CropFilter.tsx
-    │   │   │   └── KnowledgeCatalog.tsx
-    │   │   └── journal/
-    │   │       ├── JournalList.tsx
-    │   │       └── JournalItem.tsx
-    │   └── app/
-    │       ├── layout.tsx
-    │       ├── page.tsx
-    │       └── globals.css
-    └── tests/
-        └── e2e/
-            ├── diagnosis.spec.ts
-            ├── disease-card.spec.ts
-            ├── catalog.spec.ts
-            └── journal.spec.ts
+
+`PLAYWRIGHT_BASE_URL=http://127.0.0.1:3001` позволяет выполнять E2E против уже запущенной production-сборки. Без этой переменной Playwright поднимает локальный dev-сервер. `EVIDENCE_DIR` задаёт каталог сохранения скриншотов.
+
+- `npm test`: 357 проверок целостности каталога, ресурсов и соответствия классов.
+- Vitest: численная политика и совместимость/ошибки журнала.
+- Playwright: настоящие Canvas/WASM, настоящее загруженное фото, четыре размера viewport, отмена, отказ, сетевые ошибки, corrupt JPEG, legacy и quota.
+- Python: схема, права, качество изображений, ingest и общий реестр.
+
+Системная `.venv` первоначально ссылалась на отсутствующий Python313. Для проверки создано отдельное игнорируемое окружение `.superpowers/dinov2/python`; исходная `.venv` не менялась. Python wheel включает общие JSON-справочники в `share/plantdb`. При запуске тестов из исходников выставить `PYTHONPATH=src`.
+
+## Воспроизведение бенчмарка
+
+```powershell
+cd frontend
+node scripts/prepare-evaluation.mjs
+npm run evaluate:model
 ```
+
+Подготавливаются 315 фотографий: по 15 на каждый из 21 класса, три непересекающихся прогона по 105. Галерейные фото выбираются отдельно. Порядок детерминирован по SHA-256 имени файла; manifest содержит источники, ID и хеши изображений. Результаты и фото лежат в игнорируемом `data/evaluations/plantvillage-dinov2/`; сводный JSON и отчёт — в `docs/evaluations/`.
+
+**Это проверка подключения на PlantVillage, а не независимое измерение полевого качества.** Модель обучалась на этой базе; принадлежность конкретных снимков авторскому train/test неизвестна. Пороговая политика по тестовым ответам не подстраивалась. Замеры выполнены на Windows / Intel Core i5-11400H, desktop Chromium, WASM один поток. Телефоны и Safari аппаратно не проверены.
+
+## Лицензии и ограничения выпуска
+
+Модель/Space: Rodayna Emad Mohamed, CC BY-SA 4.0; backbone DINOv2 — Apache 2.0; ONNX Runtime — MIT. В package сохранены первичные README и NOTICE, в справочнике доступны ссылки. Новые PlantVillage-фото сопровождаются авторством, исходными URL, blob SHA и лицензией в `frontend/public/data/dinov2-attribution.json`. Имена оригинальных файлов сохранены.
+
+Для старых сторонних `public/data/catalog` права и источники требуют отдельного подтверждения перед коммерческим публичным выпуском. Наличие этих файлов в исходном проекте не считается проверкой лицензии. Независимый полевой benchmark и калибровка также остаются необходимыми для заявления полевой точности.
+
+Проверка npm выявила унаследованные предупреждения Next.js 14 / Tailwind и их зависимостей (в том числе critical для Next.js). Новые тестовые зависимости установлены в исправленных версиях. Мажорное обновление основного стека не включалось в подключение модели; публичный deployment в этой работе не выполнялся. Проверенный локальный сервер привязан к 127.0.0.1.

@@ -3,6 +3,9 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { DiseaseCondition, JournalEntry } from '@/types';
+import { DISEASE_MAP } from '@/data/diseases';
+import { Candidate } from '@/lib/diagnosis/types';
+import { originLabel } from '@/lib/journal';
 import {
   ArrowLeft,
   CheckCircle2,
@@ -23,10 +26,12 @@ import {
 interface DiagnosisResultProps {
   condition: DiseaseCondition;
   scannedImageSrc: string;
-  confidence: number;
+  score: number | null;
+  origin: JournalEntry['origin'];
+  top3?: Candidate[];
   onBack: () => void;
   onNewScan: () => void;
-  onSaveToJournal?: (entry: JournalEntry) => void;
+  onSaveToJournal?: () => void;
   isSavedInJournal?: boolean;
 }
 
@@ -35,43 +40,17 @@ type TreatmentTab = 'symptoms' | 'biological' | 'agrotechnical' | 'chemical';
 export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
   condition,
   scannedImageSrc,
-  confidence,
+  score, origin, top3,
   onBack,
   onNewScan,
   onSaveToJournal,
   isSavedInJournal = false,
 }) => {
   const [activeTab, setActiveTab] = useState<TreatmentTab>('symptoms');
-  const [saved, setSaved] = useState(isSavedInJournal);
+  const saved = isSavedInJournal;
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
 
-  const handleSave = () => {
-    if (saved) return;
-    const now = new Date();
-    const formattedDate = new Intl.DateTimeFormat('ru-RU', {
-      day: 'numeric',
-      month: 'short',
-      hour: '2-digit',
-      minute: '2-digit',
-    }).format(now);
-
-    const newEntry: JournalEntry = {
-      id: `entry_${Date.now()}`,
-      timestamp: now.toISOString(),
-      formattedDateRu: formattedDate,
-      cropId: condition.cropId,
-      cropNameRu: condition.cropNameRu,
-      conditionId: condition.id,
-      conditionNameRu: condition.nameRu,
-      risk: condition.risk,
-      riskLabelRu: condition.riskLabelRu,
-      confidence: confidence,
-      imageSrc: scannedImageSrc,
-    };
-
-    setSaved(true);
-    onSaveToJournal?.(newEntry);
-  };
+  const handleSave = () => { if (!saved) onSaveToJournal?.(); };
 
   const getRiskColor = (risk: 'healthy' | 'moderate' | 'critical') => {
     switch (risk) {
@@ -101,9 +80,9 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
 
   const riskColors = getRiskColor(condition.risk);
 
-  const photosList = condition.photos && condition.photos.length > 0
-    ? condition.photos
-    : [scannedImageSrc];
+  const photosList = [...new Set([scannedImageSrc, ...condition.photos].filter(Boolean))];
+  const selectedPhoto = photosList[selectedPhotoIndex] || '';
+  const isPlantVillagePhoto = selectedPhoto.startsWith('/data/plantvillage/') || selectedPhoto.startsWith('/data/dinov2/');
 
   return (
     <div className="space-y-4 pb-6">
@@ -122,7 +101,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
           <button
             type="button"
             onClick={handleSave}
-            disabled={saved}
+            disabled={saved || !onSaveToJournal}
             className={`inline-flex items-center space-x-1.5 py-1.5 px-3 rounded-xl text-xs font-bold transition min-h-[40px] ${
               saved
                 ? 'bg-emerald-100 text-emerald-800 border border-emerald-300 cursor-default'
@@ -154,17 +133,18 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
         </div>
       </div>
 
+      <p className="text-[11px] text-slate-500">{originLabel({ origin } as JournalEntry)}{score !== null ? ' · Оценка модели не равна вероятности правильного диагноза.' : ''}</p>
       {/* Main Diagnosis Card */}
       <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
         {/* Photo Gallery Banner */}
         <div className="relative w-full aspect-[16/10] bg-slate-900">
-          <Image
+          {photosList.length > 0 && <Image
             src={photosList[selectedPhotoIndex] || scannedImageSrc}
             alt={condition.nameRu}
             fill
             className="object-cover"
             priority
-          />
+          />}
           {/* Top overlay badges */}
           <div className="absolute top-3 left-3 flex items-center space-x-1.5">
             <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-black/70 backdrop-blur-md text-white border border-white/20">
@@ -178,17 +158,18 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
           </div>
 
           {/* Confidence Badge */}
-          <div className="absolute bottom-3 right-3 px-3 py-1.5 rounded-xl bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center space-x-2">
+          {score !== null && <div className="absolute bottom-3 right-3 px-3 py-1.5 rounded-xl bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center space-x-2">
             <div className="text-right">
               <span className="text-[10px] uppercase font-bold text-slate-300 block leading-none">
-                Точность ИИ
+                Оценка модели
               </span>
               <span className="text-sm font-black text-emerald-400 font-mono">
-                {confidence.toFixed(1)}%
+                {(score * 100).toFixed(1)}%
               </span>
             </div>
           </div>
 
+          }
           {/* Photo Dots indicator if multiple */}
           {photosList.length > 1 && (
             <div className="absolute bottom-3 left-3 flex items-center space-x-1.5 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-full">
@@ -209,6 +190,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
           )}
         </div>
 
+        <p className="px-4 py-1.5 text-[10px] text-slate-500">{selectedPhotoIndex === 0 && score !== null ? 'Анализируемый снимок' : 'Справочный пример'}. {isPlantVillagePhoto && <>PlantVillage: Hughes &amp; Salathé, CC BY-SA 3.0. <a className="underline" href="/data/dinov2-attribution.json" target="_blank" rel="noreferrer">Источники новых фото</a></>}</p>
         {/* Title and Pathogen Details */}
         <div className="p-4 border-b border-slate-100">
           <h2 className="text-lg font-black text-slate-900 leading-snug">
@@ -222,6 +204,12 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
           </p>
         </div>
 
+        {score !== null && <div className="px-4 py-2 bg-amber-50 text-[11px] text-amber-950">
+          {condition.isHealthy ? 'Характерных признаков известных модели поражений не найдено. Скрытые инфекции и другие причины симптомов не исключены.' : 'Предварительное предположение по одному листу. Подтвердите причину поражения перед обработкой.'}
+          <p className="mt-1">Цветовой статус относится к справочному риску состояния, а не к измеренной степени поражения.</p>
+        </div>}
+        {top3 && <details className="px-4 py-2 text-xs text-slate-600"><summary className="cursor-pointer font-semibold">Возможные варианты</summary><ul className="mt-2 space-y-1">{top3.map(item => <li key={item.index}>{item.conditionId ? DISEASE_MAP[item.conditionId]?.nameRu : 'Неподдерживаемое состояние'} — {(item.score * 100).toFixed(1)}%</li>)}</ul></details>}
+        {condition.contentSources && <div className="px-4 py-2 text-[10px] text-slate-500">Материалы: {condition.contentSources.map(source => <a key={source.url} href={source.url} target="_blank" rel="noreferrer" className="underline mr-2">{source.title}</a>)}</div>}
         {/* 4 Treatment Category Tabs */}
         <div className="grid grid-cols-4 border-b border-slate-200 bg-slate-50/80 p-1 gap-1">
           <button
@@ -298,14 +286,14 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
               {condition.photos && condition.photos.length > 1 && (
                 <div className="pt-2">
                   <span className="text-[11px] font-bold text-slate-500 block mb-1.5">
-                    Эталонные снимки PlantVillage ({condition.photos.length} шт):
+                    Примеры из справочника ({condition.photos.length} шт):
                   </span>
                   <div className="flex space-x-2 overflow-x-auto pb-1 scrollbar-none">
                     {condition.photos.map((photo, pIdx) => (
                       <button
                         key={pIdx}
                         type="button"
-                        onClick={() => setSelectedPhotoIndex(pIdx)}
+                        onClick={() => setSelectedPhotoIndex(photosList.indexOf(photo))}
                         className={`relative w-14 h-14 rounded-lg overflow-hidden border-2 shrink-0 transition ${
                           selectedPhotoIndex === pIdx
                             ? 'border-emerald-600 ring-2 ring-emerald-200'
@@ -366,7 +354,7 @@ export const DiagnosisResult: React.FC<DiagnosisResultProps> = ({
             <div className="space-y-3">
               <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center space-x-1.5">
                 <Pill className="w-4 h-4 text-rose-600" />
-                <span>Фунгициды и химическая защита</span>
+                <span>Препараты и химическая защита</span>
               </h4>
               <div className="bg-amber-50 border border-amber-200 rounded-xl p-2.5 text-[11px] text-amber-900 leading-relaxed flex items-start space-x-2">
                 <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />

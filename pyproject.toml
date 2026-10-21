@@ -2,7 +2,7 @@
 name = "plantdb"
 version = "0.1.0"
 description = "Verified plant disease photo database and pipeline"
-readme = "README.md"
+readme = "PROJECT.md"
 requires-python = ">=3.12"
 dependencies = [
     "sqlalchemy>=2.0.30",
@@ -30,3 +30,6 @@ python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
 addopts = "-v --strict-markers"
+
+[tool.setuptools.data-files]
+"share/plantdb" = ["config/model_labels.json", "config/model_conditions.json", "config/taxonomy_seed.json"]

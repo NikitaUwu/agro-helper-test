@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 from plantdb.contracts import IngestSummary
 from plantdb.models import DiseaseClass, ImageRecord, Source
 from plantdb.quality import inspect_image
+from plantdb.registry import model_labels
 
 
 # Mapping typical PlantVillage / Kaggle directory names to our class_id
@@ -31,6 +32,9 @@ PLANTVILLAGE_FOLDER_MAP: Dict[str, str] = {
     "Apple___Black_rot": "apple_black_rot",
     "Apple___Cedar_apple_rust": "apple_cedar_rust",
 }
+
+
+PLANTVILLAGE_FOLDER_MAP.update({item['rawLabel']: item['conditionId'] for item in model_labels() if item['enabled']})
 
 
 def resolve_class_id_from_path(file_path: Path) -> Optional[str]:

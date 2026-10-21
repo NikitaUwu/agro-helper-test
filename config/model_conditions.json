@@ -1,0 +1,128 @@
+[
+  {
+    "id": "tomato_bacterial_spot", "cropId": "tomato", "cropNameRu": "Томат",
+    "nameRu": "Бактериальная пятнистость томата", "nameEn": "Tomato Bacterial Spot",
+    "pathogenRu": "Бактерии Xanthomonas spp.", "conditionType": "disease", "risk": "moderate", "riskLabelRu": "Умеренно",
+    "summaryRu": "Небольшие тёмные пятна на листьях могут сопровождаться пожелтением. По одному фото бактериальную причину нельзя подтвердить.",
+    "targetOrganRu": "листья",
+    "recommendations": {
+      "symptoms": ["Мелкие тёмные пятна, иногда с жёлтым ореолом.", "Пятна могут сливаться, поражённые листья — опадать."],
+      "biological": ["Способ биозащиты подбирают после подтверждения причины пятнистости."],
+      "agrotechnical": ["Избегайте дождевания и работы с мокрыми растениями.", "Используйте здоровую рассаду и очищайте инструменты."],
+      "chemical": ["Не выбирайте препарат только по фотографии. Подтвердите диагноз и проверьте регистрацию средства для культуры в вашем регионе."]
+    },
+    "contentSources": [{"title": "UMN Extension: Bacterial spot of tomato and pepper", "url": "https://extension.umn.edu/agriculture/specialty-crops/vegetable-farming/disease-management/bacterial-spot-of-tomato-and-pepper"}]
+  },
+  {
+    "id": "tomato_leaf_mold", "cropId": "tomato", "cropNameRu": "Томат",
+    "nameRu": "Кладоспориоз (листовая плесень) томата", "nameEn": "Tomato Leaf Mold",
+    "pathogenRu": "Гриб Passalora fulva", "conditionType": "disease", "risk": "moderate", "riskLabelRu": "Умеренно",
+    "summaryRu": "Листовая плесень чаще развивается при высокой влажности. Для уточнения осмотрите обе стороны листа.",
+    "targetOrganRu": "листья",
+    "recommendations": {
+      "symptoms": ["Желтоватые участки на верхней стороне листа.", "Оливковый или буроватый налёт с нижней стороны."],
+      "biological": ["Биологическую защиту согласуйте с агрономом после подтверждения возбудителя."],
+      "agrotechnical": ["Улучшайте проветривание и избегайте длительного увлажнения листьев.", "Следите за растительными остатками и выбирайте устойчивые сорта."],
+      "chemical": ["Фунгицид выбирают по подтверждённому диагнозу и действующей инструкции для томата; модель схему обработок не назначает."]
+    },
+    "contentSources": [{"title": "UMN Extension: Tomato leaf mold", "url": "https://extension.umn.edu/agriculture/specialty-crops/vegetable-farming/disease-management/tomato-leaf-mold"}]
+  },
+  {
+    "id": "tomato_spider_mites", "cropId": "tomato", "cropNameRu": "Томат",
+    "nameRu": "Повреждение паутинным клещом", "nameEn": "Tomato Two-Spotted Spider Mite",
+    "pathogenRu": "Вредитель: обыкновенный паутинный клещ Tetranychus urticae", "conditionType": "pest", "risk": "moderate", "riskLabelRu": "Умеренно",
+    "summaryRu": "Клещ повреждает клетки листа. Это вредитель, поэтому рекомендации по борьбе с грибными болезнями здесь не подходят.",
+    "targetOrganRu": "листья",
+    "recommendations": {
+      "symptoms": ["Мелкая светлая крапчатость, позднее бронзовость и подсыхание.", "На нижней стороне листа возможны клещи и тонкая паутина; проверьте лупой."],
+      "biological": ["В защищённом грунте возможность применения хищных клещей обсудите со специалистом по биозащите."],
+      "agrotechnical": ["Осмотрите соседние растения и изолируйте новые поступления.", "Не допускайте сильного водного стресса; регулярно осматривайте нижнюю сторону листьев."],
+      "chemical": ["Фунгициды против клещей не предназначены. Необходимость акарицида и зарегистрированное средство определяют после обнаружения вредителя."]
+    },
+    "contentSources": [{"title": "UC IPM: Spider mites", "url": "https://ipm.ucanr.edu/pdf/pestnotes/pnspidermites.pdf"}]
+  },
+  {
+    "id": "tomato_target_spot", "cropId": "tomato", "cropNameRu": "Томат",
+    "nameRu": "Коринеспороз (мишеневидная пятнистость) томата", "nameEn": "Tomato Target Spot",
+    "pathogenRu": "Гриб Corynespora cassiicola", "conditionType": "disease", "risk": "moderate", "riskLabelRu": "Умеренно",
+    "summaryRu": "Пятнистость с концентрическими зонами может напоминать альтернариоз. Требуется сопоставление с другими симптомами.",
+    "targetOrganRu": "листья",
+    "recommendations": {
+      "symptoms": ["Округлые бурые пятна с более тёмными концентрическими кольцами.", "При развитии поражения участки некроза сливаются, лист усыхает."],
+      "biological": ["Подбор биологических средств зависит от подтверждённой причины поражения."],
+      "agrotechnical": ["Уменьшайте длительность увлажнения листьев и улучшайте воздухообмен.", "Регулярно осматривайте нижние листья и удаляйте заражённые растительные остатки."],
+      "chemical": ["Подтвердите пятнистость у специалиста до подбора зарегистрированного фунгицида; не переносите схемы от других болезней автоматически."]
+    },
+    "contentSources": [{"title": "UF/IFAS: Target Spot of Tomato", "url": "https://ask.ifas.ufl.edu/publication/PP351"}]
+  },
+  {
+    "id": "tomato_mosaic_virus", "cropId": "tomato", "cropNameRu": "Томат",
+    "nameRu": "Вирусная мозаика томата", "nameEn": "Tomato Mosaic Virus",
+    "pathogenRu": "Tomato mosaic virus (ToMV)", "conditionType": "disease", "risk": "critical", "riskLabelRu": "Критично",
+    "summaryRu": "Мозаичная окраска и деформация листьев могут иметь несколько причин. Определить конкретный вирус по фотографии надёжно нельзя.",
+    "targetOrganRu": "листья",
+    "recommendations": {
+      "symptoms": ["Чередование светлых и тёмных участков листа.", "Деформация и сужение листовых пластинок, возможное угнетение роста."],
+      "biological": ["Средства биозащиты не устраняют вирус из уже заражённого растения."],
+      "agrotechnical": ["Ограничьте перенос сока между растениями, очищайте инструменты и руки.", "При подозрении на вирус изолируйте растение и обратитесь за подтверждением диагноза."],
+      "chemical": ["Фунгициды вирусную инфекцию не лечат. Химическую обработку только по этому результату не проводят."]
+    },
+    "contentSources": [{"title": "UC IPM: Tobacco mosaic / tobamoviruses on tomato", "url": "https://ipm.ucanr.edu/agriculture/tomato/tobacco-mosaic/"}]
+  },
+  {
+    "id": "pepper_bacterial_spot", "cropId": "pepper", "cropNameRu": "Сладкий перец",
+    "nameRu": "Бактериальная пятнистость сладкого перца", "nameEn": "Bell Pepper Bacterial Spot",
+    "pathogenRu": "Бактерии Xanthomonas spp.", "conditionType": "disease", "risk": "moderate", "riskLabelRu": "Умеренно",
+    "summaryRu": "Тёмные пятна на листьях могут сопровождаться пожелтением и опадением. Предположение по фото требует проверки.",
+    "targetOrganRu": "листья",
+    "recommendations": {
+      "symptoms": ["Мелкие тёмные или водянистые пятна.", "Пожелтение вокруг поражений и выпадение участков ткани."],
+      "biological": ["Биологические меры согласуйте после подтверждения бактериальной природы пятнистости."],
+      "agrotechnical": ["Используйте здоровую рассаду; избегайте дождевания.", "Не работайте с мокрыми растениями и очищайте инструменты."],
+      "chemical": ["Подбор зарегистрированного средства выполняют по подтверждённому диагнозу; случайные обработки могут быть неэффективны."]
+    },
+    "contentSources": [{"title": "UMN Extension: Bacterial spot of tomato and pepper", "url": "https://extension.umn.edu/agriculture/specialty-crops/vegetable-farming/disease-management/bacterial-spot-of-tomato-and-pepper"}]
+  },
+  {
+    "id": "pepper_healthy", "cropId": "pepper", "cropNameRu": "Сладкий перец",
+    "nameRu": "Сладкий перец: лист без характерных поражений", "nameEn": "Bell Pepper Healthy Leaf",
+    "pathogenRu": "По внешнему виду листа", "conditionType": "healthy", "isHealthy": true, "risk": "healthy", "riskLabelRu": "Без признаков",
+    "summaryRu": "На листе не видно характерных признаков известных модели состояний. Другие болезни, вредители и скрытые инфекции этим не исключаются.",
+    "targetOrganRu": "листья",
+    "recommendations": {
+      "symptoms": ["Равномерная окраска и отсутствие заметных пятен на этом снимке."],
+      "biological": ["Профилактические обработки без установленной причины не требуются."],
+      "agrotechnical": ["Продолжайте осмотр растений, поддерживайте равномерный полив и проветривание."],
+      "chemical": ["Этот результат не является основанием для применения препаратов."]
+    },
+    "contentSources": [{"title": "Область классов DINOv2 PlantVillage", "url": "https://huggingface.co/rodynaemad/plant-disease-dinov2-small"}]
+  },
+  {
+    "id": "strawberry_leaf_scorch", "cropId": "strawberry", "cropNameRu": "Земляника",
+    "nameRu": "Бурая пятнистость (ожог листьев) земляники", "nameEn": "Strawberry Leaf Scorch",
+    "pathogenRu": "Гриб Diplocarpon earlianum", "conditionType": "disease", "risk": "moderate", "riskLabelRu": "Умеренно",
+    "summaryRu": "Leaf scorch — пятнистость листьев земляники. Её следует отличать от других пятнистостей и повреждения засухой.",
+    "targetOrganRu": "листья",
+    "recommendations": {
+      "symptoms": ["Многочисленные пурпурные или бурые пятна без выраженного белого центра.", "При слиянии пятен лист краснеет, буреет и выглядит обожжённым."],
+      "biological": ["Биологические меры выбирают после уточнения возбудителя пятнистости."],
+      "agrotechnical": ["Используйте здоровый посадочный материал и улучшайте проветривание посадок.", "Избегайте длительного увлажнения листьев, удаляйте поражённые остатки."],
+      "chemical": ["При необходимости обработки используйте только зарегистрированное для земляники средство после подтверждения причины поражения."]
+    },
+    "contentSources": [{"title": "NC State Extension: Leaf Scorch of Strawberry", "url": "https://content.ces.ncsu.edu/leaf-scorch-of-strawberry"}]
+  },
+  {
+    "id": "strawberry_healthy", "cropId": "strawberry", "cropNameRu": "Земляника",
+    "nameRu": "Земляника: лист без характерных поражений", "nameEn": "Strawberry Healthy Leaf",
+    "pathogenRu": "По внешнему виду листа", "conditionType": "healthy", "isHealthy": true, "risk": "healthy", "riskLabelRu": "Без признаков",
+    "summaryRu": "На снимке не выявлены характерные признаки известных модели поражений листа. Состояние ягод, корней и всего растения модель не оценивает.",
+    "targetOrganRu": "листья",
+    "recommendations": {
+      "symptoms": ["Лист без заметных пятен и усыхания на этом снимке."],
+      "biological": ["Не применяйте защитные средства только ради профилактики по результату модели."],
+      "agrotechnical": ["Продолжайте наблюдение за посадками, избегайте загущения и переувлажнения."],
+      "chemical": ["Оснований для химической обработки по этому результату нет."]
+    },
+    "contentSources": [{"title": "Область классов DINOv2 PlantVillage", "url": "https://huggingface.co/rodynaemad/plant-disease-dinov2-small"}]
+  }
+]

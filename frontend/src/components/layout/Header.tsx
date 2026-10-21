@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { ANALYSIS_CROP_IDS } from '@/lib/diagnosis/registry';
 import { Sprout } from 'lucide-react';
 
 interface HeaderProps {
@@ -12,7 +13,7 @@ interface HeaderProps {
  * - Plantix-styled Russian branding («Помощник агронома»).
  * - High outdoor contrast (text-slate-900, emerald-700 accents).
  * - Safe-area top padding support.
- * - Live status badge indicating database readiness (5 культур, 25 патогенов).
+ * - Live status badge indicating database readiness (5 культур, {ANALYSIS_CROP_IDS.length} культур).
  */
 export const Header: React.FC<HeaderProps> = ({ activeTabTitle }) => {
   return (
@@ -41,8 +42,8 @@ export const Header: React.FC<HeaderProps> = ({ activeTabTitle }) => {
         {/* Live offline/ready status chip */}
         <div className="flex items-center space-x-1 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-xs font-semibold shadow-xs">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />
-          <span className="hidden xs:inline text-[11px]">Офлайн база</span>
-          <span className="xs:hidden text-[11px]">25 патогенов</span>
+          <span className="hidden xs:inline text-[11px]">Анализ листа</span>
+          <span className="xs:hidden text-[11px]">{ANALYSIS_CROP_IDS.length} культур</span>
         </div>
       </div>
     </header>

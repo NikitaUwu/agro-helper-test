@@ -1,0 +1,66 @@
+{
+  "modelId": "rodynaemad/plant-disease-dinov2-small",
+  "modelRevision": "06ebf5e308e100fd000d738c42b059ebb5f58a16",
+  "spaceRevision": "b26e704bd72c2fe05632ea6f7be680a2eca0d8f5",
+  "runtimeVersion": "1.30.0",
+  "preprocessingVersion": "canvas-rgb-short256-center224-imagenet-v1",
+  "labelsCount": 38,
+  "featuresDim": 768,
+  "inputShape": [
+    1,
+    3,
+    224,
+    224
+  ],
+  "files": [
+    {
+      "path": "model.onnx",
+      "bytes": 24231170,
+      "sha256": "907fe4ed9d5f3fa6f6f6a9321a4564766e5136a2f316a2b23c930c3bfa13d72b",
+      "sourceUrl": "https://huggingface.co/rodynaemad/plant-disease-dinov2-small/resolve/06ebf5e308e100fd000d738c42b059ebb5f58a16/onnx/model_with_features_quantized.onnx",
+      "license": "CC-BY-SA-4.0"
+    },
+    {
+      "path": "config.json",
+      "bytes": 3943,
+      "sha256": "d25b5b7e0d596e35cde57d24f82f0c041b0c4568cc90ec281d92cba56f78a1fd",
+      "sourceUrl": "https://huggingface.co/rodynaemad/plant-disease-dinov2-small/resolve/06ebf5e308e100fd000d738c42b059ebb5f58a16/config.json",
+      "license": "CC-BY-SA-4.0"
+    },
+    {
+      "path": "preprocessor_config.json",
+      "bytes": 463,
+      "sha256": "b80c65122baf0c280beb8e3f48e52447f60be990411122fda205e779191b4738",
+      "sourceUrl": "https://huggingface.co/rodynaemad/plant-disease-dinov2-small/resolve/06ebf5e308e100fd000d738c42b059ebb5f58a16/preprocessor_config.json",
+      "license": "CC-BY-SA-4.0"
+    },
+    {
+      "path": "MODEL_README.md",
+      "bytes": 6943,
+      "sha256": "5b08dca0041174449568ccd19e26318fcdbc6343a3413f1b7b9f80d4a707c189",
+      "sourceUrl": "https://huggingface.co/rodynaemad/plant-disease-dinov2-small/resolve/06ebf5e308e100fd000d738c42b059ebb5f58a16/README.md",
+      "license": "CC-BY-SA-4.0"
+    },
+    {
+      "path": "meta.json",
+      "bytes": 1281,
+      "sha256": "5b3de22ed4a87c482a204766f34c5641b7921d319eb56c09b3c448f83bb769b8",
+      "sourceUrl": "https://huggingface.co/spaces/rodynaemad/plant-disease-scanner/resolve/b26e704bd72c2fe05632ea6f7be680a2eca0d8f5/meta.json",
+      "license": "CC-BY-SA-4.0"
+    },
+    {
+      "path": "centroids.f32",
+      "bytes": 116736,
+      "sha256": "e873c9330db03dddf31e1f73db8fcb0bc4a186b69ff4d944aaec703beeeb5e51",
+      "sourceUrl": "https://huggingface.co/spaces/rodynaemad/plant-disease-scanner/resolve/b26e704bd72c2fe05632ea6f7be680a2eca0d8f5/centroids.f32",
+      "license": "CC-BY-SA-4.0"
+    },
+    {
+      "path": "SPACE_README.md",
+      "bytes": 822,
+      "sha256": "7a2f10741b38e8cec6d40e44e040e6a53016120c9c09ac2b7f1fcfbbe180e823",
+      "sourceUrl": "https://huggingface.co/spaces/rodynaemad/plant-disease-scanner/resolve/b26e704bd72c2fe05632ea6f7be680a2eca0d8f5/README.md",
+      "license": "CC-BY-SA-4.0"
+    }
+  ]
+}

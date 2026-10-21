@@ -24,18 +24,18 @@ def db_session():
 
 
 def test_seed_classes_and_sources(db_session):
-    """Seed must populate 25 classes and 3 sources."""
+    """Seed keeps the original catalogue and adds nine model-supported states."""
     classes = db_session.query(DiseaseClass).all()
-    assert len(classes) == 25
+    assert len(classes) == 34
 
     # Check 5 healthy classes
     healthy_classes = db_session.query(DiseaseClass).filter_by(is_healthy=True).all()
-    assert len(healthy_classes) == 5
-    assert {c.crop for c in healthy_classes} == {"Томат", "Картофель", "Огурец", "Яблоня", "Пшеница"}
+    assert len(healthy_classes) == 7
+    assert {c.crop for c in healthy_classes} == {"Томат", "Картофель", "Огурец", "Яблоня", "Пшеница", "Сладкий перец", "Земляника"}
 
     # Check 20 disease classes
     diseases = db_session.query(DiseaseClass).filter_by(is_healthy=False).all()
-    assert len(diseases) == 20
+    assert len(diseases) == 27
 
     # Check open sources
     sources = db_session.query(Source).all()

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "hosts": [
     {
       "id": "11111111-1111-4111-8111-111111111101",
@@ -39,6 +39,22 @@
       "common_name_ru": "Пшеница мягкая",
       "common_name_en": "Wheat",
       "eppo_code": "TRZAE",
+      "taxon_type": "host"
+    },
+    {
+      "id": "a679b1b5-8a8d-512c-9208-040a5c07eb02",
+      "canonical_name": "Capsicum annuum",
+      "common_name_ru": "Сладкий перец",
+      "common_name_en": "Bell Pepper",
+      "eppo_code": "CPSAN",
+      "taxon_type": "host"
+    },
+    {
+      "id": "d31151c0-7729-5904-9d10-c80c6a91735d",
+      "canonical_name": "Fragaria x ananassa",
+      "common_name_ru": "Земляника садовая",
+      "common_name_en": "Strawberry",
+      "eppo_code": "FRAAN",
       "taxon_type": "host"
     }
   ],
@@ -185,6 +201,48 @@
       "common_name_ru": "Септориоз листьев пшеницы",
       "common_name_en": "Septoria tritici blotch",
       "eppo_code": "SEPTTR",
+      "taxon_type": "pathogen"
+    },
+    {
+      "id": "60aac5c6-b49f-5140-af41-a28d2492c6b5",
+      "canonical_name": "Xanthomonas spp.",
+      "common_name_ru": "Бактерии Xanthomonas spp.",
+      "common_name_en": "Tomato Bacterial Spot",
+      "taxon_type": "pathogen"
+    },
+    {
+      "id": "0e15882a-1fed-531a-8bf6-414ad2acba80",
+      "canonical_name": "Passalora fulva",
+      "common_name_ru": "Гриб Passalora fulva",
+      "common_name_en": "Tomato Leaf Mold",
+      "taxon_type": "pathogen"
+    },
+    {
+      "id": "66aaedb1-3737-544c-95f3-8874d80364b1",
+      "canonical_name": "Tetranychus urticae",
+      "common_name_ru": "Вредитель: обыкновенный паутинный клещ Tetranychus urticae",
+      "common_name_en": "Tomato Two-Spotted Spider Mite",
+      "taxon_type": "pest"
+    },
+    {
+      "id": "2c4e28a5-fc27-5f15-b334-55ba9e65f668",
+      "canonical_name": "Corynespora cassiicola",
+      "common_name_ru": "Гриб Corynespora cassiicola",
+      "common_name_en": "Tomato Target Spot",
+      "taxon_type": "pathogen"
+    },
+    {
+      "id": "7d09f028-a789-59bb-9a7b-375a00294b8f",
+      "canonical_name": "Tomato mosaic virus",
+      "common_name_ru": "Tomato mosaic virus (ToMV)",
+      "common_name_en": "Tomato Mosaic Virus",
+      "taxon_type": "pathogen"
+    },
+    {
+      "id": "249cefd3-125c-544d-a016-83b9840515a2",
+      "canonical_name": "Diplocarpon earlianum",
+      "common_name_ru": "Гриб Diplocarpon earlianum",
+      "common_name_en": "Strawberry Leaf Scorch",
       "taxon_type": "pathogen"
     }
   ],
@@ -348,33 +406,302 @@
       "pathogen_id": "22222222-2222-4222-8222-222222222218",
       "host_id": "11111111-1111-4111-8111-111111111105",
       "target_organ": "листья, колос"
+    },
+    {
+      "id": "d9b5d299-1e59-5c24-bd38-e5eef6320b5a",
+      "name": "Бактериальная пятнистость томата",
+      "condition_type": "disease",
+      "pathogen_id": "60aac5c6-b49f-5140-af41-a28d2492c6b5",
+      "host_id": "11111111-1111-4111-8111-111111111101",
+      "target_organ": "листья"
+    },
+    {
+      "id": "ab5b380e-a61d-5910-8ad2-7c27d5a2c597",
+      "name": "Кладоспориоз (листовая плесень) томата",
+      "condition_type": "disease",
+      "pathogen_id": "0e15882a-1fed-531a-8bf6-414ad2acba80",
+      "host_id": "11111111-1111-4111-8111-111111111101",
+      "target_organ": "листья"
+    },
+    {
+      "id": "c5055300-6c14-59c5-8039-4205a370ce34",
+      "name": "Повреждение паутинным клещом",
+      "condition_type": "pest",
+      "pathogen_id": "66aaedb1-3737-544c-95f3-8874d80364b1",
+      "host_id": "11111111-1111-4111-8111-111111111101",
+      "target_organ": "листья"
+    },
+    {
+      "id": "0123a0b2-1661-57e9-87bf-1780a2422e36",
+      "name": "Коринеспороз (мишеневидная пятнистость) томата",
+      "condition_type": "disease",
+      "pathogen_id": "2c4e28a5-fc27-5f15-b334-55ba9e65f668",
+      "host_id": "11111111-1111-4111-8111-111111111101",
+      "target_organ": "листья"
+    },
+    {
+      "id": "743c51be-de93-58ab-b72c-88ae7b0a2c96",
+      "name": "Вирусная мозаика томата",
+      "condition_type": "disease",
+      "pathogen_id": "7d09f028-a789-59bb-9a7b-375a00294b8f",
+      "host_id": "11111111-1111-4111-8111-111111111101",
+      "target_organ": "листья"
+    },
+    {
+      "id": "2dd994d8-498d-5b39-8e74-6808997be73b",
+      "name": "Бактериальная пятнистость сладкого перца",
+      "condition_type": "disease",
+      "pathogen_id": "60aac5c6-b49f-5140-af41-a28d2492c6b5",
+      "host_id": "a679b1b5-8a8d-512c-9208-040a5c07eb02",
+      "target_organ": "листья"
+    },
+    {
+      "id": "fee16cd1-9d92-5d6e-b7a5-22c9e741b764",
+      "name": "Бурая пятнистость (ожог листьев) земляники",
+      "condition_type": "disease",
+      "pathogen_id": "249cefd3-125c-544d-a016-83b9840515a2",
+      "host_id": "d31151c0-7729-5904-9d10-c80c6a91735d",
+      "target_organ": "листья"
     }
   ],
   "target_classes": [
-    { "class_id": "tomato_healthy", "name_ru": "Томат: здоровый", "host_code": "LYCES", "condition_id": null, "state": "healthy" },
-    { "class_id": "tomato_early_blight", "name_ru": "Томат: альтернариоз", "host_code": "LYCES", "condition_id": "33333333-3333-4333-8333-333333333301", "state": "disease" },
-    { "class_id": "tomato_late_blight", "name_ru": "Томат: фитофтороз", "host_code": "LYCES", "condition_id": "33333333-3333-4333-8333-333333333302", "state": "disease" },
-    { "class_id": "tomato_septoria_leaf_spot", "name_ru": "Томат: септориоз", "host_code": "LYCES", "condition_id": "33333333-3333-4333-8333-333333333303", "state": "disease" },
-    { "class_id": "tomato_yellow_leaf_curl", "name_ru": "Томат: жёлтая курчавость", "host_code": "LYCES", "condition_id": "33333333-3333-4333-8333-333333333304", "state": "disease" },
-    { "class_id": "potato_healthy", "name_ru": "Картофель: здоровый", "host_code": "SOLTU", "condition_id": null, "state": "healthy" },
-    { "class_id": "potato_early_blight", "name_ru": "Картофель: альтернариоз", "host_code": "SOLTU", "condition_id": "33333333-3333-4333-8333-333333333305", "state": "disease" },
-    { "class_id": "potato_late_blight", "name_ru": "Картофель: фитофтороз", "host_code": "SOLTU", "condition_id": "33333333-3333-4333-8333-333333333306", "state": "disease" },
-    { "class_id": "potato_black_scurf", "name_ru": "Картофель: ризоктониоз", "host_code": "SOLTU", "condition_id": "33333333-3333-4333-8333-333333333307", "state": "disease" },
-    { "class_id": "potato_common_scab", "name_ru": "Картофель: обыкновенная парша", "host_code": "SOLTU", "condition_id": "33333333-3333-4333-8333-333333333308", "state": "disease" },
-    { "class_id": "cucumber_healthy", "name_ru": "Огурец: здоровый", "host_code": "CUMSA", "condition_id": null, "state": "healthy" },
-    { "class_id": "cucumber_powdery_mildew", "name_ru": "Огурец: мучнистая роса", "host_code": "CUMSA", "condition_id": "33333333-3333-4333-8333-333333333309", "state": "disease" },
-    { "class_id": "cucumber_downy_mildew", "name_ru": "Огурец: ложная мучнистая роса (пероноспороз)", "host_code": "CUMSA", "condition_id": "33333333-3333-4333-8333-333333333310", "state": "disease" },
-    { "class_id": "cucumber_anthracnose", "name_ru": "Огурец: антракноз", "host_code": "CUMSA", "condition_id": "33333333-3333-4333-8333-333333333311", "state": "disease" },
-    { "class_id": "cucumber_angular_leaf_spot", "name_ru": "Огурец: угловатая пятнистость (бактериоз)", "host_code": "CUMSA", "condition_id": "33333333-3333-4333-8333-333333333312", "state": "disease" },
-    { "class_id": "apple_healthy", "name_ru": "Яблоня: здоровая", "host_code": "MABDO", "condition_id": null, "state": "healthy" },
-    { "class_id": "apple_scab", "name_ru": "Яблоня: парша", "host_code": "MABDO", "condition_id": "33333333-3333-4333-8333-333333333313", "state": "disease" },
-    { "class_id": "apple_black_rot", "name_ru": "Яблоня: чёрная гниль", "host_code": "MABDO", "condition_id": "33333333-3333-4333-8333-333333333314", "state": "disease" },
-    { "class_id": "apple_cedar_rust", "name_ru": "Яблоня: ржавчина", "host_code": "MABDO", "condition_id": "33333333-3333-4333-8333-333333333315", "state": "disease" },
-    { "class_id": "apple_powdery_mildew", "name_ru": "Яблоня: мучнистая роса", "host_code": "MABDO", "condition_id": "33333333-3333-4333-8333-333333333316", "state": "disease" },
-    { "class_id": "wheat_healthy", "name_ru": "Пшеница: здоровая", "host_code": "TRZAE", "condition_id": null, "state": "healthy" },
-    { "class_id": "wheat_stripe_rust", "name_ru": "Пшеница: жёлтая ржавчина", "host_code": "TRZAE", "condition_id": "33333333-3333-4333-8333-333333333317", "state": "disease" },
-    { "class_id": "wheat_leaf_rust", "name_ru": "Пшеница: бурая листовая ржавчина", "host_code": "TRZAE", "condition_id": "33333333-3333-4333-8333-333333333318", "state": "disease" },
-    { "class_id": "wheat_powdery_mildew", "name_ru": "Пшеница: мучнистая роса", "host_code": "TRZAE", "condition_id": "33333333-3333-4333-8333-333333333319", "state": "disease" },
-    { "class_id": "wheat_septoria_tritici_blotch", "name_ru": "Пшеница: септориоз", "host_code": "TRZAE", "condition_id": "33333333-3333-4333-8333-333333333320", "state": "disease" }
+    {
+      "class_id": "tomato_healthy",
+      "name_ru": "Томат: здоровый",
+      "host_code": "LYCES",
+      "condition_id": null,
+      "state": "healthy"
+    },
+    {
+      "class_id": "tomato_early_blight",
+      "name_ru": "Томат: альтернариоз",
+      "host_code": "LYCES",
+      "condition_id": "33333333-3333-4333-8333-333333333301",
+      "state": "disease"
+    },
+    {
+      "class_id": "tomato_late_blight",
+      "name_ru": "Томат: фитофтороз",
+      "host_code": "LYCES",
+      "condition_id": "33333333-3333-4333-8333-333333333302",
+      "state": "disease"
+    },
+    {
+      "class_id": "tomato_septoria_leaf_spot",
+      "name_ru": "Томат: септориоз",
+      "host_code": "LYCES",
+      "condition_id": "33333333-3333-4333-8333-333333333303",
+      "state": "disease"
+    },
+    {
+      "class_id": "tomato_yellow_leaf_curl",
+      "name_ru": "Томат: жёлтая курчавость",
+      "host_code": "LYCES",
+      "condition_id": "33333333-3333-4333-8333-333333333304",
+      "state": "disease"
+    },
+    {
+      "class_id": "potato_healthy",
+      "name_ru": "Картофель: здоровый",
+      "host_code": "SOLTU",
+      "condition_id": null,
+      "state": "healthy"
+    },
+    {
+      "class_id": "potato_early_blight",
+      "name_ru": "Картофель: альтернариоз",
+      "host_code": "SOLTU",
+      "condition_id": "33333333-3333-4333-8333-333333333305",
+      "state": "disease"
+    },
+    {
+      "class_id": "potato_late_blight",
+      "name_ru": "Картофель: фитофтороз",
+      "host_code": "SOLTU",
+      "condition_id": "33333333-3333-4333-8333-333333333306",
+      "state": "disease"
+    },
+    {
+      "class_id": "potato_black_scurf",
+      "name_ru": "Картофель: ризоктониоз",
+      "host_code": "SOLTU",
+      "condition_id": "33333333-3333-4333-8333-333333333307",
+      "state": "disease"
+    },
+    {
+      "class_id": "potato_common_scab",
+      "name_ru": "Картофель: обыкновенная парша",
+      "host_code": "SOLTU",
+      "condition_id": "33333333-3333-4333-8333-333333333308",
+      "state": "disease"
+    },
+    {
+      "class_id": "cucumber_healthy",
+      "name_ru": "Огурец: здоровый",
+      "host_code": "CUMSA",
+      "condition_id": null,
+      "state": "healthy"
+    },
+    {
+      "class_id": "cucumber_powdery_mildew",
+      "name_ru": "Огурец: мучнистая роса",
+      "host_code": "CUMSA",
+      "condition_id": "33333333-3333-4333-8333-333333333309",
+      "state": "disease"
+    },
+    {
+      "class_id": "cucumber_downy_mildew",
+      "name_ru": "Огурец: ложная мучнистая роса (пероноспороз)",
+      "host_code": "CUMSA",
+      "condition_id": "33333333-3333-4333-8333-333333333310",
+      "state": "disease"
+    },
+    {
+      "class_id": "cucumber_anthracnose",
+      "name_ru": "Огурец: антракноз",
+      "host_code": "CUMSA",
+      "condition_id": "33333333-3333-4333-8333-333333333311",
+      "state": "disease"
+    },
+    {
+      "class_id": "cucumber_angular_leaf_spot",
+      "name_ru": "Огурец: угловатая пятнистость (бактериоз)",
+      "host_code": "CUMSA",
+      "condition_id": "33333333-3333-4333-8333-333333333312",
+      "state": "disease"
+    },
+    {
+      "class_id": "apple_healthy",
+      "name_ru": "Яблоня: здоровая",
+      "host_code": "MABDO",
+      "condition_id": null,
+      "state": "healthy"
+    },
+    {
+      "class_id": "apple_scab",
+      "name_ru": "Яблоня: парша",
+      "host_code": "MABDO",
+      "condition_id": "33333333-3333-4333-8333-333333333313",
+      "state": "disease"
+    },
+    {
+      "class_id": "apple_black_rot",
+      "name_ru": "Яблоня: чёрная гниль",
+      "host_code": "MABDO",
+      "condition_id": "33333333-3333-4333-8333-333333333314",
+      "state": "disease"
+    },
+    {
+      "class_id": "apple_cedar_rust",
+      "name_ru": "Яблоня: ржавчина",
+      "host_code": "MABDO",
+      "condition_id": "33333333-3333-4333-8333-333333333315",
+      "state": "disease"
+    },
+    {
+      "class_id": "apple_powdery_mildew",
+      "name_ru": "Яблоня: мучнистая роса",
+      "host_code": "MABDO",
+      "condition_id": "33333333-3333-4333-8333-333333333316",
+      "state": "disease"
+    },
+    {
+      "class_id": "wheat_healthy",
+      "name_ru": "Пшеница: здоровая",
+      "host_code": "TRZAE",
+      "condition_id": null,
+      "state": "healthy"
+    },
+    {
+      "class_id": "wheat_stripe_rust",
+      "name_ru": "Пшеница: жёлтая ржавчина",
+      "host_code": "TRZAE",
+      "condition_id": "33333333-3333-4333-8333-333333333317",
+      "state": "disease"
+    },
+    {
+      "class_id": "wheat_leaf_rust",
+      "name_ru": "Пшеница: бурая листовая ржавчина",
+      "host_code": "TRZAE",
+      "condition_id": "33333333-3333-4333-8333-333333333318",
+      "state": "disease"
+    },
+    {
+      "class_id": "wheat_powdery_mildew",
+      "name_ru": "Пшеница: мучнистая роса",
+      "host_code": "TRZAE",
+      "condition_id": "33333333-3333-4333-8333-333333333319",
+      "state": "disease"
+    },
+    {
+      "class_id": "wheat_septoria_tritici_blotch",
+      "name_ru": "Пшеница: септориоз",
+      "host_code": "TRZAE",
+      "condition_id": "33333333-3333-4333-8333-333333333320",
+      "state": "disease"
+    },
+    {
+      "class_id": "tomato_bacterial_spot",
+      "name_ru": "Бактериальная пятнистость томата",
+      "host_code": "LYCES",
+      "condition_id": "d9b5d299-1e59-5c24-bd38-e5eef6320b5a",
+      "state": "disease"
+    },
+    {
+      "class_id": "tomato_leaf_mold",
+      "name_ru": "Кладоспориоз (листовая плесень) томата",
+      "host_code": "LYCES",
+      "condition_id": "ab5b380e-a61d-5910-8ad2-7c27d5a2c597",
+      "state": "disease"
+    },
+    {
+      "class_id": "tomato_spider_mites",
+      "name_ru": "Повреждение паутинным клещом",
+      "host_code": "LYCES",
+      "condition_id": "c5055300-6c14-59c5-8039-4205a370ce34",
+      "state": "pest"
+    },
+    {
+      "class_id": "tomato_target_spot",
+      "name_ru": "Коринеспороз (мишеневидная пятнистость) томата",
+      "host_code": "LYCES",
+      "condition_id": "0123a0b2-1661-57e9-87bf-1780a2422e36",
+      "state": "disease"
+    },
+    {
+      "class_id": "tomato_mosaic_virus",
+      "name_ru": "Вирусная мозаика томата",
+      "host_code": "LYCES",
+      "condition_id": "743c51be-de93-58ab-b72c-88ae7b0a2c96",
+      "state": "disease"
+    },
+    {
+      "class_id": "pepper_bacterial_spot",
+      "name_ru": "Бактериальная пятнистость сладкого перца",
+      "host_code": "CPSAN",
+      "condition_id": "2dd994d8-498d-5b39-8e74-6808997be73b",
+      "state": "disease"
+    },
+    {
+      "class_id": "pepper_healthy",
+      "name_ru": "Сладкий перец: лист без характерных поражений",
+      "host_code": "CPSAN",
+      "condition_id": null,
+      "state": "healthy"
+    },
+    {
+      "class_id": "strawberry_leaf_scorch",
+      "name_ru": "Бурая пятнистость (ожог листьев) земляники",
+      "host_code": "FRAAN",
+      "condition_id": "fee16cd1-9d92-5d6e-b7a5-22c9e741b764",
+      "state": "disease"
+    },
+    {
+      "class_id": "strawberry_healthy",
+      "name_ru": "Земляника: лист без характерных поражений",
+      "host_code": "FRAAN",
+      "condition_id": null,
+      "state": "healthy"
+    }
   ]
 }

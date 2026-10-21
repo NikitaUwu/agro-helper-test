@@ -4,6 +4,7 @@ from typing import Dict, List
 from sqlalchemy.orm import Session
 
 from plantdb.models import DiseaseClass, Source
+from plantdb.registry import additional_conditions
 
 
 SEED_SOURCES = [
@@ -293,6 +294,18 @@ SEED_CLASSES = [
         "treatment_recommendations": "Двукратная фунгицидная защита (триазолы + стробилурины) в период вегетации.",
     },
 ]
+
+
+SEED_CLASSES.extend({
+    'id': condition['id'],
+    'crop': condition['cropNameRu'],
+    'crop_en': {'tomato': 'Tomato', 'pepper': 'Bell Pepper', 'strawberry': 'Strawberry'}[condition['cropId']],
+    'disease_name': condition['nameRu'],
+    'disease_name_en': condition['nameEn'],
+    'is_healthy': condition.get('isHealthy', False),
+    'description': condition['summaryRu'],
+    'treatment_recommendations': '\n'.join(condition['recommendations']['agrotechnical'] + condition['recommendations']['chemical']),
+} for condition in additional_conditions())
 
 
 def seed_database(session: Session) -> tuple[int, int]:

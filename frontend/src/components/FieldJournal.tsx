@@ -3,6 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { JournalEntry } from '@/types';
+import { originLabel } from '@/lib/journal';
 import {
   ClipboardList,
   CheckCircle2,
@@ -159,6 +160,7 @@ export const FieldJournal: React.FC<FieldJournalProps> = ({
                   </span>
                   {getRiskBadge(entry.risk, entry.riskLabelRu)}
                 </div>
+                <p className="text-[9px] text-slate-500 mt-0.5">{originLabel(entry)}</p>
                 <h4 className="font-bold text-xs text-slate-900 truncate mt-0.5 hover:text-emerald-700 transition">
                   {entry.conditionNameRu}
                 </h4>
@@ -169,7 +171,7 @@ export const FieldJournal: React.FC<FieldJournalProps> = ({
                   </span>
                   <span>•</span>
                   <span className="font-mono font-semibold text-emerald-700">
-                    {Math.round(entry.confidence)}%
+                    {typeof entry.score === 'number' && entry.origin?.startsWith('model_') ? `${(entry.score * 100).toFixed(1)}%` : '—'}
                   </span>
                 </div>
               </div>

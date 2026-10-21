@@ -1,0 +1,86 @@
+{
+  "apple_scab": [
+    "/data/dinov2/apple_scab/18ab74ed-8e95-4787-b2e1-1283594bd00b___FREC_Scab%203012.JPG",
+    "/data/dinov2/apple_scab/41c30a63-9e26-4ced-8110-038a2e36b095___FREC_Scab%203298.JPG"
+  ],
+  "apple_black_rot": [
+    "/data/dinov2/apple_black_rot/448d1f3f-9794-4148-a180-7246ef9291cf___JR_FrgE.S%202930.JPG",
+    "/data/dinov2/apple_black_rot/898348ae-7cf3-4be6-9020-9b892558d4e9___JR_FrgE.S%202729.JPG"
+  ],
+  "apple_cedar_rust": [
+    "/data/dinov2/apple_cedar_rust/7ce07da8-973f-467f-98af-642a1ffbea04___FREC_C.Rust%204334.JPG",
+    "/data/dinov2/apple_cedar_rust/94d6b99f-2ac4-4a88-823f-3c607358d057___FREC_C.Rust%209826.JPG"
+  ],
+  "apple_healthy": [
+    "/data/dinov2/apple_healthy/70491e38-2a9e-4fb7-9ab5-dfa49d46b202___RS_HL%207758.JPG",
+    "/data/dinov2/apple_healthy/8f4c3d68-2d5a-40c5-bca1-911002ff3324___RS_HL%207299.JPG"
+  ],
+  "pepper_bacterial_spot": [
+    "/data/dinov2/pepper_bacterial_spot/8bf5c35c-1a3a-47cf-97dd-245b5105afb4___NREC_B.Spot%201879.JPG",
+    "/data/dinov2/pepper_bacterial_spot/a326fc1a-66ff-4ca1-b19c-2ce6cb760cd9___JR_B.Spot%209011.JPG"
+  ],
+  "pepper_healthy": [
+    "/data/dinov2/pepper_healthy/002f87b7-e1a5-49e5-a422-bb423630ded5___JR_HL%208068.JPG",
+    "/data/dinov2/pepper_healthy/1ce80571-2358-4616-b04a-14bbdfd2af6b___JR_HL%208340.JPG"
+  ],
+  "potato_early_blight": [
+    "/data/dinov2/potato_early_blight/acb59a95-cbe4-4602-9b8a-9adbf12899af___RS_Early.B%206754.JPG",
+    "/data/dinov2/potato_early_blight/d3240683-1636-4373-84aa-01ce594c19a0___RS_Early.B%208340.JPG"
+  ],
+  "potato_late_blight": [
+    "/data/dinov2/potato_late_blight/782bc9dd-286b-46ee-b896-fa5520f57b0c___RS_LB%204408.JPG",
+    "/data/dinov2/potato_late_blight/ae80781d-725e-486e-9677-4149b0d751ef___RS_LB%205442.JPG"
+  ],
+  "potato_healthy": [
+    "/data/dinov2/potato_healthy/144d2475-21ab-4bdc-a67c-9672a9b711e6___RS_HL%205376.JPG",
+    "/data/dinov2/potato_healthy/8583c4ff-2d8b-4b6f-89a8-fcc98917ce9b___RS_HL%201961.JPG"
+  ],
+  "strawberry_leaf_scorch": [
+    "/data/dinov2/strawberry_leaf_scorch/aed8624d-676c-453f-a0af-cfee0fac55f9___RS_L.Scorch%200869.JPG",
+    "/data/dinov2/strawberry_leaf_scorch/c90232e6-83c7-4bd9-877f-c85445a1b2e9___RS_L.Scorch%201583.JPG"
+  ],
+  "strawberry_healthy": [
+    "/data/dinov2/strawberry_healthy/ab2c9916-41d9-4b71-a678-896575726cf4___RS_HL%201713.JPG",
+    "/data/dinov2/strawberry_healthy/d564ec62-6533-4d66-98d6-f60f097d8f6c___RS_HL%204824.JPG"
+  ],
+  "tomato_bacterial_spot": [
+    "/data/dinov2/tomato_bacterial_spot/2b77473d-c669-4e5e-bf26-c1d32c800001___GCREC_Bact.Sp%203005.JPG",
+    "/data/dinov2/tomato_bacterial_spot/58591da8-58b7-481e-bf58-bd88443d0901___GCREC_Bact.Sp%206192.JPG"
+  ],
+  "tomato_early_blight": [
+    "/data/dinov2/tomato_early_blight/42ee69ea-4c2d-4e65-9c66-e3154dd08375___RS_Erly.B%208428.JPG",
+    "/data/dinov2/tomato_early_blight/c684414e-2c2b-4d12-bca0-2a5fb271e1da___RS_Erly.B%208425.JPG"
+  ],
+  "tomato_late_blight": [
+    "/data/dinov2/tomato_late_blight/75d24a6f-1c28-4e42-a7e7-8f8c496c22ce___GHLB2%20Leaf%208594.JPG",
+    "/data/dinov2/tomato_late_blight/851d91ae-4a1f-448e-afdc-09a961345353___RS_Late.B%205466.JPG"
+  ],
+  "tomato_leaf_mold": [
+    "/data/dinov2/tomato_leaf_mold/77a7828d-7cef-4490-9bd3-3e05c523a2f4___Crnl_L.Mold%207056.JPG",
+    "/data/dinov2/tomato_leaf_mold/d90f334c-18c3-4b20-903e-e51f57d8704d___Crnl_L.Mold%206935.JPG"
+  ],
+  "tomato_septoria_leaf_spot": [
+    "/data/dinov2/tomato_septoria_leaf_spot/2ee8fa50-545b-4de2-9b26-6af401c46ede___JR_Sept.L.S%202696.JPG",
+    "/data/dinov2/tomato_septoria_leaf_spot/6e179382-44e9-4032-b6cb-81c631134922___JR_Sept.L.S%208359.JPG"
+  ],
+  "tomato_spider_mites": [
+    "/data/dinov2/tomato_spider_mites/2b47c565-c37a-4bdb-baa9-b3721dbf9bb6___Com.G_SpM_FL%209326.JPG",
+    "/data/dinov2/tomato_spider_mites/3bc0207a-406f-49e9-bf64-7082897ef2a4___Com.G_SpM_FL%201583.JPG"
+  ],
+  "tomato_target_spot": [
+    "/data/dinov2/tomato_target_spot/9c77930c-8758-4c44-a0e8-0bee30c1fd4b___Com.G_TgS_FL%209690.JPG",
+    "/data/dinov2/tomato_target_spot/a2c02a4d-ebcd-45cc-9bf1-77938e875712___Com.G_TgS_FL%200707.JPG"
+  ],
+  "tomato_yellow_leaf_curl": [
+    "/data/dinov2/tomato_yellow_leaf_curl/04d1d26d-181b-4f7a-b586-44aefe1c9af9___YLCV_NREC%200286.JPG",
+    "/data/dinov2/tomato_yellow_leaf_curl/079971f3-8298-40ba-b8a5-c389784f5118___YLCV_GCREC%202654.JPG"
+  ],
+  "tomato_mosaic_virus": [
+    "/data/dinov2/tomato_mosaic_virus/27ebc6ca-9094-46c1-9fa7-35432b9adb93___PSU_CG%202310.JPG",
+    "/data/dinov2/tomato_mosaic_virus/2f240e5e-cbb9-406a-98aa-12028411429c___PSU_CG%202123.JPG"
+  ],
+  "tomato_healthy": [
+    "/data/dinov2/tomato_healthy/15cae3c8-6843-49d1-8da6-33bd014f05ce___GH_HL%20Leaf%20169.JPG",
+    "/data/dinov2/tomato_healthy/4a0a9092-e70e-4a73-bb51-4d83b3c90a38___GH_HL%20Leaf%20195.JPG"
+  ]
+}

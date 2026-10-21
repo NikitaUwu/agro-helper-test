@@ -1,140 +1,45 @@
-// frontend/scripts/test-scenarios.mjs
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import assert from 'node:assert/strict';
+import { build } from 'esbuild';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..');
-const publicDir = path.resolve(rootDir, 'public');
-
-let totalTests = 0;
-let passedTests = 0;
-
-function assert(condition, message) {
-  totalTests++;
-  if (!condition) {
-    console.error(`❌ ОШИБКА: ${message}`);
-    process.exit(1);
-  } else {
-    passedTests++;
-    console.log(`  ✓ ${message}`);
-  }
+const root = path.resolve(import.meta.dirname, '..');
+const bundle = await build({ absWorkingDir: root, stdin: { contents: `
+  export { DISEASES } from './src/data/diseases';
+  export { CROPS } from './src/data/crops';
+  export { DEMO_SAMPLES } from './src/data/demoSamples';
+  export { MODEL_LABELS, ANALYSIS_CROP_IDS } from './src/lib/diagnosis/registry';
+`, resolveDir: root, loader: 'ts' }, bundle: true, platform: 'node', format: 'esm', write: false, tsconfig: path.join(root, 'tsconfig.json') });
+const { DISEASES, CROPS, DEMO_SAMPLES, MODEL_LABELS, ANALYSIS_CROP_IDS } = await import('data:text/javascript;base64,' + Buffer.from(bundle.outputFiles[0].text).toString('base64'));
+let count = 0;
+const check = (condition, message) => { assert.ok(condition, message); count++; };
+check(DISEASES.length === 34, '34 catalogue states including all 25 legacy IDs');
+check(CROPS.length === 7, '7 knowledge crops, including cucumber and wheat');
+check(ANALYSIS_CROP_IDS.length === 5, '5 photo-analysis crops');
+check(MODEL_LABELS.length === 38, 'all 38 model outputs retained');
+check(MODEL_LABELS.filter(item => item.enabled).length === 21, '21 supported states');
+check(new Set(DISEASES.map(item => item.id)).size === DISEASES.length, 'unique condition IDs');
+for (const crop of CROPS) {
+  check(DISEASES.some(item => item.id === crop.healthyConditionId && item.cropId === crop.id && item.isHealthy), `${crop.id} healthy card`);
+  check(crop.diseaseCount === DISEASES.filter(item => item.cropId === crop.id && !item.isHealthy).length, `${crop.id} derived count`);
 }
-
-console.log('====================================================');
-console.log('🌾 ТЕСТИРОВАНИЕ СЦЕНАРИЕВ: «ПОМОЩНИК АГРОНОМА» 🌾');
-console.log('====================================================\n');
-
-// ----------------------------------------------------
-// SCENARIO 1: Экспресс-диагностика и пресеты образцов
-// ----------------------------------------------------
-console.log('▶ СЦЕНАРИЙ 1: Экспресс-диагностика растений по фото и готовые образцы');
-
-const demoSamplesFile = path.resolve(rootDir, 'src/data/demoSamples.ts');
-assert(fs.existsSync(demoSamplesFile), 'Файл demoSamples.ts существует');
-
-const demoContent = fs.readFileSync(demoSamplesFile, 'utf-8');
-const idMatches = [...demoContent.matchAll(/id:\s*['"]([^'"]+)['"]/g)].map((m) => m[1]);
-assert(idMatches.length >= 9, `Найдено ${idMatches.length} пресетов образцов (требуется >= 9)`);
-
-// Проверяем наличие реальных файлов изображений в public/
-const imageMatches = [...demoContent.matchAll(/imagePath:\s*encodeURI\(['"]([^'"]+)['"]\)/g)].map((m) => m[1]);
-assert(imageMatches.length >= 9, `Найдено ${imageMatches.length} путей к изображениям образцов`);
-
-for (const rawPath of imageMatches) {
-  const decoded = decodeURIComponent(rawPath);
-  const relativePath = decoded.replace(/^\//, '');
-  const absolutePath = path.resolve(publicDir, relativePath);
-  assert(fs.existsSync(absolutePath), `Файл образца существует на диске: ${path.basename(absolutePath)}`);
+for (const item of MODEL_LABELS.filter(item => item.enabled)) {
+  check(DISEASES.some(condition => condition.id === item.conditionId && condition.cropId === item.cropId), `${item.rawLabel} resolves to the right card`);
 }
-
-// ----------------------------------------------------
-// SCENARIO 2: Карточка болезни, 4 вкладки рекомендаций и 100% покрытие фото
-// ----------------------------------------------------
-console.log('\n▶ СЦЕНАРИЙ 2: Карточка заболевания, 4 вкладки рекомендаций и 100% фото');
-
-const diseasesFile = path.resolve(rootDir, 'src/data/diseases.ts');
-assert(fs.existsSync(diseasesFile), 'Файл diseases.ts существует');
-
-const diseasesContent = fs.readFileSync(diseasesFile, 'utf-8');
-
-// Проверяем наличие всех 4 вкладок
-assert(diseasesContent.includes('symptoms:'), 'Вкладка 1: Симптомы присутствует в структуре рекомендаций');
-assert(diseasesContent.includes('biological:'), 'Вкладка 2: Биологический контроль присутствует');
-assert(diseasesContent.includes('agrotechnical:'), 'Вкладка 3: Агротехника присутствует');
-assert(diseasesContent.includes('chemical:'), 'Вкладка 4: Препараты / Фунгициды присутствует');
-
-// Проверяем подсчет заболеваний (25 классов)
-const diseaseIds = [...diseasesContent.matchAll(/id:\s*['"]([a-z_]+)['"],\s*cropId:/g)].map((m) => m[1]);
-assert(diseaseIds.length === 25, `База содержит ровно 25 состояний и заболеваний (найдено: ${diseaseIds.length})`);
-
-// Проверяем, что ВСЕ 25 имеют hasRealPhotos: true
-const realPhotoMatches = [...diseasesContent.matchAll(/hasRealPhotos:\s*(true|false)/g)].map((m) => m[1]);
-assert(realPhotoMatches.length === 25, `Найдено 25 флагов hasRealPhotos`);
-assert(realPhotoMatches.every((val) => val === 'true'), `ВСЕ 25 заболеваний в справочнике имеют реальные фото (hasRealPhotos = true)`);
-
-// Проверяем, что все фото в diseases.ts реально существуют на диске
-const diseasePhotoMatches = [...diseasesContent.matchAll(/encodeURI\(['"]([^'"]+)['"]\)/g)].map((m) => m[1]);
-assert(diseasePhotoMatches.length >= 25, `Всего путей к фото в diseases.ts: ${diseasePhotoMatches.length}`);
-for (const p of diseasePhotoMatches) {
-  const decoded = decodeURIComponent(p);
-  const relativePath = decoded.replace(/^\//, '');
-  const absolutePath = path.resolve(publicDir, relativePath);
-  assert(fs.existsSync(absolutePath), `Фото справочника существует на диске: ${path.basename(absolutePath)}`);
+for (const condition of DISEASES) {
+  for (const tab of ['symptoms', 'biological', 'agrotechnical', 'chemical']) check(condition.recommendations[tab]?.length > 0, `${condition.id}: ${tab}`);
+  check(condition.photos.length > 0, `${condition.id}: reference photo`);
+  for (const url of condition.photos) check(fs.existsSync(path.join(root, 'public', decodeURIComponent(url))), `${condition.id}: photo exists`);
 }
-
-// ----------------------------------------------------
-// SCENARIO 3: Справочник культур и база знаний
-// ----------------------------------------------------
-console.log('\n▶ СЦЕНАРИЙ 3: Каталог культур и база знаний');
-
-const cropsFile = path.resolve(rootDir, 'src/data/crops.ts');
-assert(fs.existsSync(cropsFile), 'Файл crops.ts существует');
-
-const cropsContent = fs.readFileSync(cropsFile, 'utf-8');
-const requiredCrops = ['tomato', 'potato', 'cucumber', 'apple', 'wheat'];
-for (const crop of requiredCrops) {
-  assert(cropsContent.includes(`id: '${crop}'`), `Культура «${crop}» присутствует в справочнике`);
+check(DEMO_SAMPLES.length >= 11, 'presets cover all five analysis crops');
+for (const sample of DEMO_SAMPLES) {
+  check(ANALYSIS_CROP_IDS.includes(sample.cropId), `${sample.id}: supported crop`);
+  check(DISEASES.some(item => item.id === sample.expectedConditionId && item.cropId === sample.cropId), `${sample.id}: labelled ground truth`);
+  check(sample.confidence === undefined, `${sample.id}: no fabricated score`);
+  check(fs.existsSync(path.join(root, 'public', decodeURIComponent(sample.imagePath))), `${sample.id}: file exists`);
 }
-
-// Проверяем русские названия культур
-assert(cropsContent.includes("nameRu: 'Томат'"), 'Культура Томат локализована');
-assert(cropsContent.includes("nameRu: 'Картофель'"), 'Культура Картофель локализована');
-assert(cropsContent.includes("nameRu: 'Огурец'"), 'Культура Огурец локализована');
-assert(cropsContent.includes("nameRu: 'Яблоня'"), 'Культура Яблоня локализована');
-assert(cropsContent.includes("nameRu: 'Пшеница'"), 'Культура Пшеница локализована');
-
-// ----------------------------------------------------
-// SCENARIO 4: Полевой журнал и оффлайн-сохранение
-// ----------------------------------------------------
-console.log('\n▶ СЦЕНАРИЙ 4: Полевой журнал (история проверок и сохранение)');
-
-const pageFile = path.resolve(rootDir, 'src/app/page.tsx');
-const pageContent = fs.readFileSync(pageFile, 'utf-8');
-
-assert(pageContent.includes('agronomist_field_journal_v1'), 'Используется ключ localStorage: agronomist_field_journal_v1');
-assert(pageContent.includes('updateJournal'), 'Реализована функция обновления и синхронизации журнала');
-assert(pageContent.includes('handleDeleteJournalEntry'), 'Реализовано удаление отдельных записей журнала');
-assert(pageContent.includes('handleClearJournal'), 'Реализована полная очистка журнала');
-
-// ----------------------------------------------------
-// SCENARIO 5: Проверка удаления "PLANTIX AI" и заголовок "Экспресс-диагностика растений"
-// ----------------------------------------------------
-console.log('\n▶ СЦЕНАРИЙ 5: Проверка чистоты бренда и заголовков экрана');
-
-const headerFile = path.resolve(rootDir, 'src/components/layout/Header.tsx');
-const headerContent = fs.readFileSync(headerFile, 'utf-8');
-assert(!headerContent.includes('Plantix AI'), 'В Header.tsx полностью удалена надпись "Plantix AI"');
-assert(headerContent.includes('Агро ИИ'), 'В Header.tsx отображается обновленный бейдж "Агро ИИ"');
-
-const scannerFile = path.resolve(rootDir, 'src/components/Scanner.tsx');
-const scannerContent = fs.readFileSync(scannerFile, 'utf-8');
-assert(!scannerContent.includes('Plantix AI'), 'В Scanner.tsx полностью удалена надпись "Plantix AI"');
-
-assert(pageContent.includes('Экспресс-диагностика растений'), 'Заголовок на экране диагностики: "Экспресс-диагностика растений"');
-
-console.log('\n====================================================');
-console.log(`🎉 ВСЕ СЦЕНАРИИ УСПЕШНО ПРОЙДЕНЫ! (${passedTests}/${totalTests} проверок)`);
-console.log('====================================================\n');
-process.exit(0);
+const header = fs.readFileSync(path.join(root, 'src/components/layout/Header.tsx'), 'utf8');
+check(!header.includes('Plantix AI'), 'project branding retained');
+check(header.includes('Агро ИИ'), 'Russian header retained');
+console.log(`PASS: ${count}/${count} catalogue, asset, mapping and scenario structure checks.`);
+console.log('Runtime behavior is covered separately by test:unit, test:e2e and test:model.');

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { CROPS, CROP_MAP } from '@/data/crops';
 import { DISEASES } from '@/data/diseases';
 import { DiseaseCondition, CropId } from '@/types';
+import { canAnalyzeCondition, ANALYSIS_CROP_IDS } from '@/lib/diagnosis/registry';
 import {
   Search,
   CheckCircle2,
@@ -39,6 +40,8 @@ export const CropCatalog: React.FC<CropCatalogProps> = ({ onSelectDisease }) => 
         return <Leaf className="w-4 h-4 text-emerald-500" />;
       case 'apple':
         return <Apple className="w-4 h-4 text-rose-500" />;
+      case 'pepper': return <Sprout className="w-4 h-4 text-emerald-600" />;
+      case 'strawberry': return <Leaf className="w-4 h-4 text-rose-500" />;
       case 'wheat':
         return <Wheat className="w-4 h-4 text-amber-500" />;
     }
@@ -92,10 +95,11 @@ export const CropCatalog: React.FC<CropCatalogProps> = ({ onSelectDisease }) => 
           Справочник культур и патогенов
         </h2>
         <p className="text-xs text-slate-500 mt-0.5">
-          База агрономических знаний: 5 культур и 25 видов поражений
+          База знаний: {CROPS.length} культур и {DISEASES.length} состояния · анализ для {ANALYSIS_CROP_IDS.length} культур
         </p>
       </div>
 
+      <details className="text-[11px] text-slate-500"><summary className="cursor-pointer">Модель и источники</summary><p className="mt-2">Экспериментальная модель <a href="https://huggingface.co/rodynaemad/plant-disease-dinov2-small" className="underline" target="_blank" rel="noreferrer">DINOv2-small — Rodayna Emad Mohamed</a>, <a className="underline" href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a>. Примеры PlantVillage — Hughes &amp; Salathé, CC BY-SA. <a href="/data/dinov2-attribution.json" className="underline" target="_blank" rel="noreferrer">Атрибуция новых фото</a>. Фото для анализа остаются на устройстве. Другие болезни и скрытые инфекции могут не определяться.</p></details>
       {/* Search Input Bar */}
       <div className="relative">
         <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -212,6 +216,7 @@ export const CropCatalog: React.FC<CropCatalogProps> = ({ onSelectDisease }) => 
                   </span>
                   {getRiskBadge(disease.risk, disease.riskLabelRu)}
                 </div>
+                {!canAnalyzeCondition(disease.id) && <span className="block text-[9px] text-amber-700 mt-1">Анализ по фото недоступен</span>}
                 <h4 className="font-bold text-xs text-slate-900 truncate mt-0.5 group-hover:text-emerald-700 transition-colors">
                   {disease.nameRu}
                 </h4>

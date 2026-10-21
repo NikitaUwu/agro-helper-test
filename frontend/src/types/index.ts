@@ -1,6 +1,6 @@
 export type RiskSeverity = 'healthy' | 'moderate' | 'critical';
 
-export type CropId = 'tomato' | 'potato' | 'apple' | 'cucumber' | 'wheat';
+export type CropId = 'tomato' | 'potato' | 'apple' | 'cucumber' | 'wheat' | 'pepper' | 'strawberry';
 
 export interface TreatmentRecommendations {
   symptoms: string[];
@@ -25,6 +25,8 @@ export interface DiseaseCondition {
   recommendations: TreatmentRecommendations;
   photos: string[]; // paths in /data/plantvillage/...
   hasRealPhotos?: boolean;
+  conditionType?: 'disease' | 'pest' | 'healthy';
+  contentSources?: { title: string; url: string }[];
 }
 
 export interface CropInfo {
@@ -47,7 +49,7 @@ export interface DemoSample {
   titleRu: string;
   expectedConditionId: string;
   imagePath: string;
-  confidence: number;
+  confidence?: number;
   risk: RiskSeverity;
   riskLabelRu: string;
   tagRu?: string;
@@ -63,9 +65,15 @@ export interface JournalEntry {
   conditionNameRu: string;
   risk: RiskSeverity;
   riskLabelRu: string;
-  confidence: number;
+  confidence?: number;
   imageSrc: string;
   notes?: string;
+  schemaVersion?: 2;
+  origin?: 'model_upload' | 'model_sample' | 'catalog' | 'legacy_demo';
+  score?: number | null;
+  modelRevision?: string;
+  policyVersion?: string;
+  preprocessingVersion?: string;
 }
 
 export type ActiveTab = 'diagnostics' | 'catalog' | 'journal';

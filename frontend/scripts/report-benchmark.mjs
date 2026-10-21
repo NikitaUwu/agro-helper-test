@@ -72,7 +72,7 @@ Accepted healthy: ${metrics.healthy.acceptedHealthy}, ошибочных пер�
 
 В frontend: npm ci; node scripts/prepare-evaluation.mjs; npm run evaluate:model. Нужен доступ к исходным открытым файлам для первой подготовки.
 
-Машиночитаемая сводка: [JSON](2026-10-21-dinov2-benchmark.json). В data/evaluations/plantvillage-dinov2 сохранены manifest.json, predictions.json и metrics.json; изображения и локальные результаты не входят в Git. Сводный отчёт фиксируется в docs/evaluations.
+В Git сохранены [сводка](2026-10-21-dinov2-benchmark.json), [точный список 315 файлов](2026-10-21-plantvillage-manifest.json) и [индивидуальные предсказания](2026-10-21-dinov2-predictions.json). Подготовка использует неизменяемую ревизию PlantVillage и сверяет SHA-256 и Git blob SHA каждого скачанного или кэшированного снимка. Файлы изображений и рабочие копии результатов в data/evaluations/plantvillage-dinov2 не входят в Git. Повторный запуск меняет времена и записывает новый отчёт.
 `;
   await fs.mkdir(path.join(root, 'docs/evaluations'), { recursive: true });
   await fs.writeFile(path.join(root, 'docs/evaluations/2026-10-21-dinov2-benchmark.md'), body);

@@ -10,7 +10,7 @@ import { writeBenchmarkReport } from './report-benchmark.mjs';
 const frontend = path.resolve(import.meta.dirname, '..');
 const root = path.dirname(frontend);
 const directory = path.join(root, 'data/evaluations/plantvillage-dinov2');
-const manifestFile = path.join(directory, 'manifest.json');
+const manifestFile = path.join(root, 'docs/evaluations/2026-10-21-plantvillage-manifest.json');
 const manifest = JSON.parse(await fs.readFile(manifestFile, 'utf8'));
 const publicDirectory = path.join(frontend, 'public');
 const mime = { '.js': 'application/javascript', '.mjs': 'application/javascript', '.wasm': 'application/wasm', '.json': 'application/json' };
@@ -98,6 +98,7 @@ try {
   await fs.writeFile(path.join(directory, 'metrics.json'), JSON.stringify(metrics, null, 2));
   const reportDirectory = path.join(root, 'docs/evaluations'); await fs.mkdir(reportDirectory, { recursive: true });
   await fs.writeFile(path.join(reportDirectory, '2026-10-21-dinov2-benchmark.json'), JSON.stringify(metrics, null, 2) + '\n');
+  await fs.writeFile(path.join(reportDirectory, '2026-10-21-dinov2-predictions.json'), JSON.stringify(rows, null, 2) + '\n');
   await writeBenchmarkReport(metrics);
   console.log(JSON.stringify({ coldStart: metrics.coldStart, overall: metrics.overall, runs: metrics.runs, negative, errors }, null, 2));
   if (metrics.overall.errorCount || errors.length) process.exitCode = 1;

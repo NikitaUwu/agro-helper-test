@@ -2,3 +2,4 @@
 frontend/public/models/** -text
 frontend/public/ort/** -text
 frontend/public/data/dinov2/** -text
+docs/evaluations/*.json -text

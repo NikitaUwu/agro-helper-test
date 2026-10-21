@@ -1,6 +1,6 @@
 {
-  "startedAt": "2026-10-21T16:41:47.776Z",
-  "finishedAt": "2026-10-21T16:43:47.554Z",
+  "startedAt": "2026-10-21T16:57:39.527Z",
+  "finishedAt": "2026-10-21T16:59:47.076Z",
   "version": {
     "model": "06ebf5e308e100fd000d738c42b059ebb5f58a16",
     "policy": "experimental-score85-margin20-ood699-v1",
@@ -14,7 +14,7 @@
     "node": "v22.21.1",
     "browser": "151.0.7922.34",
     "backend": "WASM, 1 thread, no GPU",
-    "datasetManifestSha256": "c6ff1eacd49210f9e84a38fa36aa3d2c33b3142e0c4207c63f2fac3fb012cbb8"
+    "datasetManifestSha256": "beb5b8ceff17a1997bd5d1d7609523e5ef0d14b0ac4cbddb694220312fa09e1c"
   },
   "limitations": [
     "Integration/domain benchmark only; not an independent field accuracy estimate.",
@@ -25,9 +25,9 @@
     "Synthetic negatives are not an unknown-disease validation set."
   ],
   "coldStart": {
-    "totalMs": 1398.1999998092651,
-    "initializationMs": 974.8000001907349,
-    "inferenceMs": 398
+    "totalMs": 1327.5,
+    "initializationMs": 882.5,
+    "inferenceMs": 426.5
   },
   "overall": {
     "count": 315,
@@ -38,10 +38,10 @@
     "acceptedCorrect": 295,
     "acceptedPrecision": 1,
     "coverage": 0.9365079365079365,
-    "meanInferenceMs": 357.27841270007787,
-    "meanTotalMs": 359.78634921634006,
-    "p50TotalMs": 343.2000000476837,
-    "p95TotalMs": 464.5,
+    "meanInferenceMs": 385.5628571419489,
+    "meanTotalMs": 388.52984126408893,
+    "p50TotalMs": 364.2999999523163,
+    "p95TotalMs": 551,
     "errorCount": 0
   },
   "runs": [
@@ -55,10 +55,10 @@
       "acceptedCorrect": 98,
       "acceptedPrecision": 1,
       "coverage": 0.9333333333333333,
-      "meanInferenceMs": 337.8399999981835,
-      "meanTotalMs": 340.4714285736992,
-      "p50TotalMs": 336.59999990463257,
-      "p95TotalMs": 373.89999985694885,
+      "meanInferenceMs": 358.22761904171534,
+      "meanTotalMs": 361.5809523854937,
+      "p50TotalMs": 356.2999999523163,
+      "p95TotalMs": 399.19999980926514,
       "errorCount": 0
     },
     {
@@ -71,10 +71,10 @@
       "acceptedCorrect": 98,
       "acceptedPrecision": 1,
       "coverage": 0.9333333333333333,
-      "meanInferenceMs": 357.66476191111974,
-      "meanTotalMs": 360.11809524127415,
-      "p50TotalMs": 350.30000019073486,
-      "p95TotalMs": 426.2999999523163,
+      "meanInferenceMs": 361.6438095251719,
+      "meanTotalMs": 364.18761904353187,
+      "p50TotalMs": 357.2999999523163,
+      "p95TotalMs": 414.7000000476837,
       "errorCount": 0
     },
     {
@@ -87,10 +87,10 @@
       "acceptedCorrect": 99,
       "acceptedPrecision": 1,
       "coverage": 0.9428571428571428,
-      "meanInferenceMs": 376.3304761909303,
-      "meanTotalMs": 378.7695238340469,
-      "p50TotalMs": 350.90000009536743,
-      "p95TotalMs": 556.4000000953674,
+      "meanInferenceMs": 436.81714285895936,
+      "meanTotalMs": 439.8209523632413,
+      "p50TotalMs": 390.5,
+      "p95TotalMs": 682,
       "errorCount": 0
     }
   ],
@@ -105,10 +105,10 @@
       "acceptedCorrect": 60,
       "acceptedPrecision": 1,
       "coverage": 1,
-      "meanInferenceMs": 336.1383333325386,
-      "meanTotalMs": 338.670000008742,
-      "p50TotalMs": 332.7000000476837,
-      "p95TotalMs": 377.5,
+      "meanInferenceMs": 382.5566666563352,
+      "meanTotalMs": 386.2633333325386,
+      "p50TotalMs": 359.2999999523163,
+      "p95TotalMs": 524.8999998569489,
       "errorCount": 0
     },
     {
@@ -121,10 +121,10 @@
       "acceptedCorrect": 30,
       "acceptedPrecision": 1,
       "coverage": 1,
-      "meanInferenceMs": 336.8633333524068,
-      "meanTotalMs": 339.0833333412806,
-      "p50TotalMs": 334.40000009536743,
-      "p95TotalMs": 393.39999985694885,
+      "meanInferenceMs": 409.496666653951,
+      "meanTotalMs": 412.2166666428248,
+      "p50TotalMs": 373,
+      "p95TotalMs": 704.5,
       "errorCount": 0
     },
     {
@@ -137,10 +137,10 @@
       "acceptedCorrect": 38,
       "acceptedPrecision": 1,
       "coverage": 0.8444444444444444,
-      "meanInferenceMs": 346.9511110994551,
-      "meanTotalMs": 349.36666668256123,
-      "p50TotalMs": 345.89999985694885,
-      "p95TotalMs": 382.90000009536743,
+      "meanInferenceMs": 398.66444442537096,
+      "meanTotalMs": 401.4488888793521,
+      "p50TotalMs": 359.60000014305115,
+      "p95TotalMs": 551.6999998092651,
       "errorCount": 0
     },
     {
@@ -153,10 +153,10 @@
       "acceptedCorrect": 29,
       "acceptedPrecision": 1,
       "coverage": 0.9666666666666667,
-      "meanInferenceMs": 372.20666665236155,
-      "meanTotalMs": 374.7899999936422,
-      "p50TotalMs": 349.40000009536743,
-      "p95TotalMs": 541.8000001907349,
+      "meanInferenceMs": 445.65333336989085,
+      "meanTotalMs": 448.4966666936874,
+      "p50TotalMs": 354.5,
+      "p95TotalMs": 836.9000000953674,
       "errorCount": 0
     },
     {
@@ -169,10 +169,10 @@
       "acceptedCorrect": 138,
       "acceptedPrecision": 1,
       "coverage": 0.92,
-      "meanInferenceMs": 369.93000000635783,
-      "meanTotalMs": 372.49866667906446,
-      "p50TotalMs": 348.90000009536743,
-      "p95TotalMs": 507.60000014305115,
+      "meanInferenceMs": 366.03000000317894,
+      "meanTotalMs": 368.82999999046325,
+      "p50TotalMs": 365,
+      "p95TotalMs": 407.2000000476837,
       "errorCount": 0
     }
   ],
@@ -187,10 +187,10 @@
       "acceptedCorrect": 15,
       "acceptedPrecision": 1,
       "coverage": 1,
-      "meanInferenceMs": 336.91333333651227,
-      "meanTotalMs": 339.4000000158946,
-      "p50TotalMs": 337.2000000476837,
-      "p95TotalMs": 364,
+      "meanInferenceMs": 360.4133333047231,
+      "meanTotalMs": 363.01999996503196,
+      "p50TotalMs": 359.2999999523163,
+      "p95TotalMs": 414.5,
       "errorCount": 0
     },
     {
@@ -203,10 +203,10 @@
       "acceptedCorrect": 15,
       "acceptedPrecision": 1,
       "coverage": 1,
-      "meanInferenceMs": 336.24666668574014,
-      "meanTotalMs": 338.8266666889191,
-      "p50TotalMs": 330.90000009536743,
-      "p95TotalMs": 406.89999985694885,
+      "meanInferenceMs": 351.6333333492279,
+      "meanTotalMs": 354.69333340326943,
+      "p50TotalMs": 349.90000009536743,
+      "p95TotalMs": 379.10000014305115,
       "errorCount": 0
     },
     {
@@ -219,10 +219,10 @@
       "acceptedCorrect": 15,
       "acceptedPrecision": 1,
       "coverage": 1,
-      "meanInferenceMs": 336.0999999841054,
-      "meanTotalMs": 338.7866666634878,
-      "p50TotalMs": 334.30000019073486,
-      "p95TotalMs": 379.19999980926514,
+      "meanInferenceMs": 390.1733333110809,
+      "meanTotalMs": 392.89999996821086,
+      "p50TotalMs": 358.90000009536743,
+      "p95TotalMs": 524.8999998569489,
       "errorCount": 0
     },
     {
@@ -235,10 +235,10 @@
       "acceptedCorrect": 15,
       "acceptedPrecision": 1,
       "coverage": 1,
-      "meanInferenceMs": 335.2933333237966,
-      "meanTotalMs": 337.6666666666667,
-      "p50TotalMs": 328.39999985694885,
-      "p95TotalMs": 377.5,
+      "meanInferenceMs": 428.00666666030884,
+      "meanTotalMs": 434.4399999936422,
+      "p50TotalMs": 406.40000009536743,
+      "p95TotalMs": 599.0999999046326,
       "errorCount": 0
     },
     {
@@ -251,10 +251,10 @@
       "acceptedCorrect": 15,
       "acceptedPrecision": 1,
       "coverage": 1,
-      "meanInferenceMs": 333.67999998728436,
-      "meanTotalMs": 335.83999999364215,
-      "p50TotalMs": 334.40000009536743,
-      "p95TotalMs": 393.39999985694885,
+      "meanInferenceMs": 391.439999961853,
+      "meanTotalMs": 394.13333331743877,
+      "p50TotalMs": 359.90000009536743,
+      "p95TotalMs": 704.5,
       "errorCount": 0
     },
     {
@@ -267,10 +267,10 @@
       "acceptedCorrect": 15,
       "acceptedPrecision": 1,
       "coverage": 1,
-      "meanInferenceMs": 340.0466667175293,
-      "meanTotalMs": 342.3266666889191,
-      "p50TotalMs": 342.30000019073486,
-      "p95TotalMs": 403.30000019073486,
+      "meanInferenceMs": 427.553333346049,
+      "meanTotalMs": 430.29999996821084,
+      "p50TotalMs": 386.7999999523163,
+      "p95TotalMs": 760.2000000476837,
       "errorCount": 0
     },
     {
@@ -283,10 +283,10 @@
       "acceptedCorrect": 15,
       "acceptedPrecision": 1,
       "coverage": 1,
-      "meanInferenceMs": 341.4666666507721,
-      "meanTotalMs": 344.08666666348773,
-      "p50TotalMs": 338.39999985694885,
-      "p95TotalMs": 427.2999999523163,
+      "meanInferenceMs": 410.51333333651223,
+      "meanTotalMs": 413.12666665712993,
+      "p50TotalMs": 362.90000009536743,
+      "p95TotalMs": 551.6999998092651,
       "errorCount": 0
     },
     {
@@ -299,10 +299,10 @@
       "acceptedCorrect": 12,
       "acceptedPrecision": 1,
       "coverage": 0.8,
-      "meanInferenceMs": 350.0866666475932,
-      "meanTotalMs": 352.4333333492279,
-      "p50TotalMs": 345.89999985694885,
-      "p95TotalMs": 396.5,
+      "meanInferenceMs": 393.6199999650319,
+      "meanTotalMs": 396.28000000317894,
+      "p50TotalMs": 358.2000000476837,
+      "p95TotalMs": 682,
       "errorCount": 0
     },
     {
@@ -315,10 +315,10 @@
       "acceptedCorrect": 11,
       "acceptedPrecision": 1,
       "coverage": 0.7333333333333333,
-      "meanInferenceMs": 349.3,
-      "meanTotalMs": 351.58000003496807,
-      "p50TotalMs": 354.10000014305115,
-      "p95TotalMs": 381.59999990463257,
+      "meanInferenceMs": 391.85999997456867,
+      "meanTotalMs": 394.9399999777476,
+      "p50TotalMs": 357.89999985694885,
+      "p95TotalMs": 586.8999998569489,
       "errorCount": 0
     },
     {
@@ -331,10 +331,10 @@
       "acceptedCorrect": 14,
       "acceptedPrecision": 1,
       "coverage": 0.9333333333333333,
-      "meanInferenceMs": 350.1333333333333,
-      "meanTotalMs": 352.7399999936422,
-      "p50TotalMs": 350.90000009536743,
-      "p95TotalMs": 393.10000014305115,
+      "meanInferenceMs": 404.68000005086265,
+      "meanTotalMs": 407.3333333333333,
+      "p50TotalMs": 350.10000014305115,
+      "p95TotalMs": 576,
       "errorCount": 0
     },
     {
@@ -347,10 +347,10 @@
       "acceptedCorrect": 15,
       "acceptedPrecision": 1,
       "coverage": 1,
-      "meanInferenceMs": 394.27999997138977,
-      "meanTotalMs": 396.83999999364215,
-      "p50TotalMs": 348.69999980926514,
-      "p95TotalMs": 556.4000000953674,
+      "meanInferenceMs": 486.62666668891904,
+      "meanTotalMs": 489.6600000540415,
+      "p50TotalMs": 381.10000014305115,
+      "p95TotalMs": 917.3000001907349,
       "errorCount": 0
     },
     {
@@ -363,10 +363,10 @@
       "acceptedCorrect": 14,
       "acceptedPrecision": 1,
       "coverage": 0.9333333333333333,
-      "meanInferenceMs": 417.3066666762034,
-      "meanTotalMs": 420.11333333651226,
-      "p50TotalMs": 403.19999980926514,
-      "p95TotalMs": 621,
+      "meanInferenceMs": 374.5733333269755,
+      "meanTotalMs": 377.646666653951,
+      "p50TotalMs": 374.5,
+      "p95TotalMs": 421.40000009536743,
       "errorCount": 0
     },
     {
@@ -379,10 +379,10 @@
       "acceptedCorrect": 13,
       "acceptedPrecision": 1,
       "coverage": 0.8666666666666667,
-      "meanInferenceMs": 405.44666666984557,
-      "meanTotalMs": 407.98666666348777,
-      "p50TotalMs": 377.7999999523163,
-      "p95TotalMs": 582.9000000953674,
+      "meanInferenceMs": 362.0600000063578,
+      "meanTotalMs": 364.93333330154417,
+      "p50TotalMs": 363.59999990463257,
+      "p95TotalMs": 388.89999985694885,
       "errorCount": 0
     },
     {
@@ -395,10 +395,10 @@
       "acceptedCorrect": 11,
       "acceptedPrecision": 1,
       "coverage": 0.7333333333333333,
-      "meanInferenceMs": 410.6933333237966,
-      "meanTotalMs": 413.4066667397817,
-      "p50TotalMs": 371.60000014305115,
-      "p95TotalMs": 650.2000000476837,
+      "meanInferenceMs": 356.6866666475932,
+      "meanTotalMs": 359.3333333651225,
+      "p50TotalMs": 350.7000000476837,
+      "p95TotalMs": 423,
       "errorCount": 0
     },
     {
@@ -411,10 +411,10 @@
       "acceptedCorrect": 14,
       "acceptedPrecision": 1,
       "coverage": 0.9333333333333333,
-      "meanInferenceMs": 384.08666667938235,
-      "meanTotalMs": 386.6,
-      "p50TotalMs": 345.2000000476837,
-      "p95TotalMs": 590,
+      "meanInferenceMs": 375.3866666475932,
+      "meanTotalMs": 378.2333333015442,
+      "p50TotalMs": 375.5,
+      "p95TotalMs": 440.69999980926514,
       "errorCount": 0
     },
     {
@@ -427,10 +427,10 @@
       "acceptedCorrect": 14,
       "acceptedPrecision": 1,
       "coverage": 0.9333333333333333,
-      "meanInferenceMs": 358.81333330472313,
-      "meanTotalMs": 361.18666666348776,
-      "p50TotalMs": 359.7999999523163,
-      "p95TotalMs": 408.7999999523163,
+      "meanInferenceMs": 364.3933333714803,
+      "meanTotalMs": 367.37333331108096,
+      "p50TotalMs": 365.10000014305115,
+      "p95TotalMs": 405.89999985694885,
       "errorCount": 0
     },
     {
@@ -443,10 +443,10 @@
       "acceptedCorrect": 15,
       "acceptedPrecision": 1,
       "coverage": 1,
-      "meanInferenceMs": 348.6333333333333,
-      "meanTotalMs": 351.0799999713898,
-      "p50TotalMs": 351.40000009536743,
-      "p95TotalMs": 388.89999985694885,
+      "meanInferenceMs": 361.3799999713898,
+      "meanTotalMs": 364.21333328882855,
+      "p50TotalMs": 361.7999999523163,
+      "p95TotalMs": 397.2000000476837,
       "errorCount": 0
     },
     {
@@ -459,10 +459,10 @@
       "acceptedCorrect": 15,
       "acceptedPrecision": 1,
       "coverage": 1,
-      "meanInferenceMs": 357.09333335558574,
-      "meanTotalMs": 360.49333333969116,
-      "p50TotalMs": 347.90000009536743,
-      "p95TotalMs": 413.7000000476837,
+      "meanInferenceMs": 366.3333333651225,
+      "meanTotalMs": 369.25333331425986,
+      "p50TotalMs": 366.5,
+      "p95TotalMs": 401.09999990463257,
       "errorCount": 0
     },
     {
@@ -475,10 +475,10 @@
       "acceptedCorrect": 15,
       "acceptedPrecision": 1,
       "coverage": 1,
-      "meanInferenceMs": 335.81333330472313,
-      "meanTotalMs": 338.0933333396912,
-      "p50TotalMs": 334,
-      "p95TotalMs": 357.2000000476837,
+      "meanInferenceMs": 370.9133333683014,
+      "meanTotalMs": 373.47999997138976,
+      "p50TotalMs": 365.5,
+      "p95TotalMs": 419.60000014305115,
       "errorCount": 0
     },
     {
@@ -491,10 +491,10 @@
       "acceptedCorrect": 13,
       "acceptedPrecision": 1,
       "coverage": 0.8666666666666667,
-      "meanInferenceMs": 336.3466667334239,
-      "meanTotalMs": 338.7200000127157,
-      "p50TotalMs": 337.7999999523163,
-      "p95TotalMs": 402.2000000476837,
+      "meanInferenceMs": 362.6333333651225,
+      "meanTotalMs": 365.113333384196,
+      "p50TotalMs": 362.40000009536743,
+      "p95TotalMs": 385.60000014305115,
       "errorCount": 0
     },
     {
@@ -507,10 +507,10 @@
       "acceptedCorrect": 14,
       "acceptedPrecision": 1,
       "coverage": 0.9333333333333333,
-      "meanInferenceMs": 345.0666666825612,
-      "meanTotalMs": 347.30666672388713,
-      "p50TotalMs": 344,
-      "p95TotalMs": 379.90000009536743,
+      "meanInferenceMs": 365.939999961853,
+      "meanTotalMs": 368.7200000127157,
+      "p50TotalMs": 373.09999990463257,
+      "p95TotalMs": 392.10000014305115,
       "errorCount": 0
     }
   ],

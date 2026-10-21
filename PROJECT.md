@@ -74,7 +74,7 @@ npm run start -- --hostname 127.0.0.1 --port 3001
 
 `build` запускает `prepare-model.mjs`: проверяет зафиксированные контрольные суммы, при отсутствии файла скачивает именно указанную ревизию, подготавливает соответствующие WASM-файлы. Команда не отключает TLS. В корпоративной сети используется доверенный CA через `NODE_EXTRA_CA_CERTS`, если это требуется её настройками.
 
-Для Vercel сохранить выбранную текущим проектом root directory: при корне репозитория используется корневой `vercel.json`, при `frontend/` — вложенный. Общий `config/` должен входить в доступные build sources (`externalDir` включён). Python и GPU для web-inference не нужны.
+Для проекта Vercel `uw-um-ursik/frontend` 22.10.2026 установлены **Root Directory = frontend** и **Include files outside the root directory in the Build Step = Enabled**. Используется `frontend/vercel.json`: `npm ci`, затем `npm run build`. Общий `config/` входит в build sources (`externalDir` включён). Для альтернативной сборки от корня репозитория корневой `vercel.json` также явно устанавливает зависимости через `npm ci --prefix frontend`. Без этого установка от пустого корня не гарантировала наличие новых пакетов и сборка падала с отсутствующим `onnxruntime-web/dist`. Python и GPU для web-inference не нужны. Push в `codex/dinov2-recognition` запускает Preview через существующую Git-интеграцию; production-ветка автоматически не меняется.
 
 ## Проверки
 

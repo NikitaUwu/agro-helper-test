@@ -1,0 +1,4 @@
+# Preserve checksummed upstream artifacts byte-for-byte on Windows checkouts.
+frontend/public/models/** -text
+frontend/public/ort/** -text
+frontend/public/data/dinov2/** -text

@@ -54,3 +54,7 @@ frontend/.vercel/
 .superpowers/
 frontend/test-results/
 frontend/playwright-report/
+
+# The Python lib/ rule must not hide application source.
+!frontend/src/lib/
+!frontend/src/lib/**

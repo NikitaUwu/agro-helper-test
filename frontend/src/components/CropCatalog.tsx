@@ -2,10 +2,10 @@
 
 import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
-import { CROPS, CROP_MAP } from '@/data/crops';
-import { DISEASES } from '@/data/diseases';
+import { CROP_MAP } from '@/data/crops';
+import { CATALOG_CROPS, CATALOG_CONDITIONS } from '@/data/catalog';
 import { DiseaseCondition, CropId } from '@/types';
-import { canAnalyzeCondition, ANALYSIS_CROP_IDS } from '@/lib/diagnosis/registry';
+import { canAnalyzeCondition } from '@/lib/diagnosis/registry';
 import {
   Search,
   CheckCircle2,
@@ -16,7 +16,6 @@ import {
   Layers,
   Leaf,
   Apple,
-  Wheat,
   ShieldCheck,
   Info,
   X,
@@ -36,14 +35,11 @@ export const CropCatalog: React.FC<CropCatalogProps> = ({ onSelectDisease }) => 
         return <Sprout className="w-4 h-4 text-emerald-600" />;
       case 'potato':
         return <Layers className="w-4 h-4 text-amber-600" />;
-      case 'cucumber':
-        return <Leaf className="w-4 h-4 text-emerald-500" />;
       case 'apple':
         return <Apple className="w-4 h-4 text-rose-500" />;
       case 'pepper': return <Sprout className="w-4 h-4 text-emerald-600" />;
       case 'strawberry': return <Leaf className="w-4 h-4 text-rose-500" />;
-      case 'wheat':
-        return <Wheat className="w-4 h-4 text-amber-500" />;
+      default: return <Leaf className="w-4 h-4 text-emerald-600" />;
     }
   };
 
@@ -73,7 +69,7 @@ export const CropCatalog: React.FC<CropCatalogProps> = ({ onSelectDisease }) => 
   };
 
   const filteredDiseases = useMemo(() => {
-    return DISEASES.filter((d) => {
+    return CATALOG_CONDITIONS.filter((d) => {
       const matchesCrop = selectedCropFilter === 'all' || d.cropId === selectedCropFilter;
       const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
@@ -95,7 +91,7 @@ export const CropCatalog: React.FC<CropCatalogProps> = ({ onSelectDisease }) => 
           Справочник культур и патогенов
         </h2>
         <p className="text-xs text-slate-500 mt-0.5">
-          База знаний: {CROPS.length} культур и {DISEASES.length} состояния · анализ для {ANALYSIS_CROP_IDS.length} культур
+          База знаний: {CATALOG_CROPS.length} культур · {CATALOG_CONDITIONS.length} состояния
         </p>
       </div>
 
@@ -132,9 +128,9 @@ export const CropCatalog: React.FC<CropCatalogProps> = ({ onSelectDisease }) => 
               : 'bg-white border border-slate-200 text-slate-700 hover:border-slate-300'
           }`}
         >
-          Все ({DISEASES.length})
+          Все ({CATALOG_CONDITIONS.length})
         </button>
-        {CROPS.map((crop) => (
+        {CATALOG_CROPS.map((crop) => (
           <button
             key={crop.id}
             type="button"

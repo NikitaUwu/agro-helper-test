@@ -29,7 +29,7 @@ test('recognition coverage explains exactly the supported states without startin
   }
   await expect(coverage.getByText('Повреждение паутинным клещом', { exact: true })).toBeVisible();
   await expect(coverage).not.toContainText('Мучнистая роса яблони');
-  await expect(coverage).toContainText('Огурец и пшеница доступны только в справочнике');
+  await expect(coverage).not.toContainText('Огурец и пшеница доступны только в справочнике');
   await expect(coverage).toContainText('Скрытые инфекции и здоровье всего растения по одному листу не оцениваются');
   const expectedNames = MODEL_LABELS.filter(label => label.enabled).map(label => {
     const condition = DISEASES.find(item => item.id === label.conditionId)!;

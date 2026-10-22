@@ -8,15 +8,35 @@ const successWorker = `self.onmessage=({data})=>{
   self.postMessage({type:'result',requestId:data.requestId,logits,features,inferenceMs:123});
 }`;
 
-test('catalog-only crops remain readable without invented scores or automatic diagnoses', async ({ page }) => {
+test('catalog hides unsupported crops and supported knowledge cards do not invent model scores', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('tab', { name: 'Справочник', exact: true }).click();
-  await page.getByRole('button', { name: 'Огурец', exact: true }).click();
-  await expect(page.getByText('Анализ по фото недоступен', { exact: true })).toHaveCount(5);
-  await page.getByRole('heading', { name: 'Мучнистая роса огурца', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Огурец', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Пшеница', exact: true })).toHaveCount(0);
+  await expect(page.getByRole('button', { name: 'Все (24)', exact: true })).toBeVisible();
+  await page.getByRole('button', { name: 'Картофель', exact: true }).click();
+  await page.getByRole('heading', { name: 'Фитофтороз картофеля', exact: true }).click();
   await expect(page.getByText('Оценка модели', { exact: true })).toHaveCount(0);
   await page.getByRole('tab', { name: /Полевой журнал/ }).click();
   await expect(page.getByText('Журнал пока пуст', { exact: true })).toBeVisible();
+});
+
+test('catalog search and every crop filter use only the five recognized plants', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('tab', {name:'Справочник',exact:true}).click();
+  const search = page.getByPlaceholder('Поиск по болезни, культуре или возбудителю...');
+  for (const query of ['огур', 'пшениц']) {
+    await search.fill(query);
+    await expect(page.getByText(`Ничего не найдено по запросу «${query}».`, {exact:true})).toBeVisible();
+    await expect(page.getByRole('heading', {level:4})).toHaveCount(0);
+  }
+  await search.fill('');
+  for (const [crop, count] of [['Томат',10],['Картофель',5],['Яблоня',5],['Сладкий перец',2],['Земляника',2]] as const) {
+    await page.getByRole('button', {name:crop,exact:true}).click();
+    await expect(page.getByRole('heading', {level:4})).toHaveCount(count);
+  }
+  await page.getByRole('button', {name:'Все (24)',exact:true}).click();
+  await expect(page.getByRole('heading', {level:4})).toHaveCount(24);
 });
 
 test('legacy history preserves crop and condition while hiding fabricated confidence', async ({ page }) => {

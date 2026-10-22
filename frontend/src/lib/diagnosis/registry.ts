@@ -2,7 +2,7 @@ import registry from '../../../../config/model_labels.json';
 import type { CropId } from '@/types';
 
 export const MODEL_REVISION = '06ebf5e308e100fd000d738c42b059ebb5f58a16';
-export const POLICY_VERSION = 'experimental-score85-margin20-ood699-v1';
+export const POLICY_VERSION = 'experimental-auto-score85-margin20-ood699-v2';
 export const PREPROCESSING_VERSION = 'canvas-rgb-short256-center224-imagenet-v1';
 export const ANALYSIS_CROP_IDS: CropId[] = ['tomato', 'potato', 'apple', 'pepper', 'strawberry'];
 export interface ModelLabelMapping {

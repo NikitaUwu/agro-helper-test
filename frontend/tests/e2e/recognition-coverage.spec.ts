@@ -38,7 +38,7 @@ test('recognition coverage explains exactly the supported states without startin
   const displayedNames = await coverage.getByRole('listitem').allTextContents();
   expect(displayedNames.map(name => name.replace('· вредитель', '').trim()).sort()).toEqual(expectedNames.sort());
   expect(modelRequests).toEqual([]);
-  await expect(page.getByLabel('Культура для анализа')).toHaveValue('');
+  await expect(page.getByLabel('Культура для анализа')).toHaveCount(0);
   for (const width of [360, 1280]) {
     await page.setViewportSize({ width, height: 844 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);

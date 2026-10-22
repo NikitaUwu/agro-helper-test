@@ -62,7 +62,7 @@ export async function analyzeLeaf(
         }
         if (data.type === 'result') {
           if (!centroids) { finish({ status: 'error', requestId, reason: 'inference_failed', message: 'Модель не прошла проверку. Повторите попытку.' }); return; }
-          finish(evaluatePrediction(data.logits, data.features, centroids, request.selectedCropId, {
+          finish(evaluatePrediction(data.logits, data.features, centroids, {
             requestId, source: request.source, inferenceMs: data.inferenceMs, initializationMs,
           }));
         }

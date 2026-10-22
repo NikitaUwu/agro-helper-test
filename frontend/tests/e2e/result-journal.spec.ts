@@ -56,7 +56,6 @@ test('model network failure is actionable and does not replace the image with a 
 
 test('upload validates file contents; selecting the same corrupt JPEG can be retried', async ({ page }) => {
   await page.goto('/');
-  await page.getByLabel('Культура для анализа').selectOption('pepper');
   for (let attempt=0;attempt<2;attempt++) {
     await page.getByLabel('Загрузка фотографии растения').setInputFiles({name:'broken.jpg',mimeType:'image/jpeg',buffer:Buffer.from('not a JPEG')});
     await expect(page.getByRole('alert').filter({ hasText: 'Не удалось открыть фотографию' })).toContainText('Не удалось открыть фотографию');

@@ -1,4 +1,3 @@
-import type { CropId } from '@/types';
 import type { DiagnosisOutcome, InferenceContext, UncertainReason } from './types';
 import { MODEL_LABELS, MODEL_REVISION, POLICY_VERSION, PREPROCESSING_VERSION } from './registry';
 
@@ -11,7 +10,7 @@ export function softmax(logits: Float32Array): number[] {
 }
 
 export function evaluatePrediction(
-  logits: Float32Array, features: Float32Array, centroids: Float32Array, selectedCropId: CropId, context: InferenceContext,
+  logits: Float32Array, features: Float32Array, centroids: Float32Array, context: InferenceContext,
 ): DiagnosisOutcome {
   const invalid = (): DiagnosisOutcome => ({ status: 'error', requestId: context.requestId, reason: 'inference_failed', message: 'Не удалось проверить ответ модели. Попробуйте ещё раз.' });
   if (logits.length !== 38 || features.length !== 768 || centroids.length !== 38 * 768 ||
@@ -35,7 +34,6 @@ export function evaluatePrediction(
   let reason: UncertainReason | undefined;
   if (similarity < THRESHOLDS.cosine) reason = 'ood';
   else if (!winner.enabled || !winner.conditionId || !winner.cropId) reason = 'unsupported_class';
-  else if (winner.cropId !== selectedCropId) reason = 'crop_mismatch';
   else if (top3[0].score < THRESHOLDS.score) reason = 'low_score';
   else if (top3[0].score - top3[1].score < THRESHOLDS.margin) reason = 'ambiguous';
   if (reason) return { ...metadata, status: 'uncertain', reason, top3, oodSimilarity: similarity };

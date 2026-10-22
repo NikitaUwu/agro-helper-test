@@ -14,6 +14,9 @@ const wilson = (successes, total) => {
 
 export async function writeBenchmarkReport(metrics) {
   const overall = metrics.overall;
+  const cropMethod = metrics.version.policy.includes('-auto-')
+    ? 'Культура определяется моделью автоматически; эталонная метка используется только для подсчёта метрик.'
+    : 'В этой исторической версии известная культура передавалась так же, как выбор пользователя.';
   const runs = metrics.runs.map(run => `| ${run.run} | ${run.count} | ${run.correctTop1} | ${percent(run.top1Accuracy)} | ${number(run.meanTotalMs)} | ${number(run.p95TotalMs)} | ${run.acceptedCount} |`).join('\n');
   const crops = metrics.crops.map(crop => `| ${{tomato:'Томат',potato:'Картофель',apple:'Яблоня',pepper:'Сладкий перец',strawberry:'Земляника'}[crop.cropId]} | ${crop.count} | ${crop.correctTop1} | ${percent(crop.top1Accuracy)} | ${crop.acceptedCount} | ${number(crop.meanTotalMs)} |`).join('\n');
   const body = `# DINOv2-small: измерения внедрения
@@ -53,7 +56,7 @@ Accepted healthy: ${metrics.healthy.acceptedHealthy}, ошибочных пер�
 - Модель ${metrics.version.model}; policy ${metrics.version.policy}; preprocess ${metrics.version.preprocessing}.
 - На каждый класс 15 файлов, выбранных по SHA-256 имени с seed dinov2-pilot-v1; по 5 файлов на класс в каждом прогоне. Дополнительные 2 фото на класс идут в галерею, а не benchmark.
 - Исходный [PlantVillage](https://github.com/spMohanty/PlantVillage-Dataset), авторы Hughes и Salathé; сохранены исходные ссылки, blob SHA и SHA-256. Ревизия manifest: ${metrics.environment.datasetManifestSha256}.
-- Все предсказания вычислены настоящим ONNX INT8 в браузерном Worker, той же функцией analyzeLeaf и тем же preprocess/policy, что использует приложение. Известная культура передаётся так же, как выбор пользователя; softmax глобальный по 38 классам, без обрезания до культуры.
+- Все предсказания вычислены настоящим ONNX INT8 в браузерном Worker, функцией analyzeLeaf с указанными выше версиями preprocess/policy. ${cropMethod} Softmax глобальный по 38 классам, без обрезания до культуры.
 - Время pipeline начинается после получения Blob и включает decode, предобработку, worker-inference и принятие решения. Выбор файла, отображение React и запись журнала в это число не входят.
 - Перед основными прогонами выполнен один cold/warmup-запуск, не включённый в среднее.
 - Исходные пороги не подбирались по результатам этих прогонов. Отдельной полевой calibration-выборки не было.

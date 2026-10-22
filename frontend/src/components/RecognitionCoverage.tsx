@@ -34,7 +34,7 @@ export function RecognitionCoverage() {
 
       <div className="px-4 pb-4">
         <p className="pb-3 text-xs leading-relaxed text-slate-600">
-          Анализируем один лист. Выберите культуру ниже, чтобы посмотреть болезни и другие распознаваемые состояния.
+          Растение определяется автоматически по одному листу. Раскройте список, чтобы посмотреть поддерживаемые состояния.
         </p>
         <div className="divide-y divide-slate-100 border-y border-slate-100">
           {coverage.map(({ crop, conditions }) => (

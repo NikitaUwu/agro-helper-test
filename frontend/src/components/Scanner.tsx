@@ -3,9 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { DEMO_SAMPLES } from '@/data/demoSamples';
-import { DemoSample, CropId } from '@/types';
-import { CROPS } from '@/data/crops';
-import { ANALYSIS_CROP_IDS } from '@/lib/diagnosis/registry';
+import { DemoSample } from '@/types';
 import { analyzeLeaf } from '@/lib/diagnosis/client';
 import { createJournalThumbnail } from '@/lib/journal';
 import { AnalysisProgress, DiagnosisOutcome } from '@/lib/diagnosis/types';
@@ -30,7 +28,6 @@ interface ScannerProps {
 export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
   const [isScanning, setIsScanning] = useState(false);
   const [scanningImage, setScanningImage] = useState<string | null>(null);
-  const [selectedCrop, setSelectedCrop] = useState<CropId | ''>('');
   const [progress, setProgress] = useState<AnalysisProgress>({ phase: 'preparing' });
   const [feedback, setFeedback] = useState<Exclude<DiagnosisOutcome, {status:'accepted'}|{status:'cancelled'}> | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -51,10 +48,10 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
     previewRef.current = null; setScanningImage(null); setIsScanning(false);
   };
 
-  const runAnalysis = async (input: Blob | string, cropId: CropId, source: 'upload' | 'sample') => {
+  const runAnalysis = async (input: Blob | string, source: 'upload' | 'sample') => {
     if (controllerRef.current) return;
     const controller = new AbortController(); controllerRef.current = controller;
-    setSelectedCrop(cropId); setFeedback(null); setIsScanning(true); setProgress({ phase: 'preparing' });
+    setFeedback(null); setIsScanning(true); setProgress({ phase: 'preparing' });
     if (typeof input === 'string') setScanningImage(input);
     const requestId = crypto.randomUUID();
     try {
@@ -66,7 +63,7 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
       } else image = input;
       if (controller.signal.aborted) return;
       const preview = URL.createObjectURL(image); previewRef.current = preview; setScanningImage(preview);
-      const outcome = await analyzeLeaf({ requestId, image, selectedCropId: cropId, source }, setProgress, controller.signal);
+      const outcome = await analyzeLeaf({ requestId, image, source }, setProgress, controller.signal);
       if (controller.signal.aborted || controllerRef.current !== controller) return;
       if (outcome.status === 'accepted') {
         const thumbnail = await createJournalThumbnail(image).catch(() => null);
@@ -87,12 +84,11 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
     }
   };
 
-  const handleSelectPreset = (sample: DemoSample) => { void runAnalysis(sample.imagePath, sample.cropId, 'sample'); };
+  const handleSelectPreset = (sample: DemoSample) => { void runAnalysis(sample.imagePath, 'sample'); };
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]; event.target.value = '';
     if (!file) return;
-    if (!selectedCrop) { setFeedback({ status: 'error', requestId: '', reason: 'invalid_file', message: 'Сначала выберите культуру.' }); return; }
-    void runAnalysis(file, selectedCrop, 'upload');
+    void runAnalysis(file, 'upload');
   };
 
   const getRiskBadge = (risk: 'healthy' | 'moderate' | 'critical', label: string) => {
@@ -211,20 +207,15 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
               Проверьте лист растения по фото
             </h2>
             <p className="text-xs text-emerald-100 mt-1 leading-relaxed">
-              Снимите один лист крупно на однотонном фоне или выберите готовый образец.
+              Снимите один лист крупно на однотонном фоне. Растение и его состояние определяются автоматически.
             </p>
 
-            <label className="block mt-3 text-xs font-semibold" htmlFor="analysis-crop">Культура</label>
-            <select id="analysis-crop" aria-label="Культура для анализа" value={selectedCrop} onChange={event => setSelectedCrop(event.target.value as CropId | '')} className="mt-1 w-full rounded-lg bg-white text-slate-900 text-xs p-2.5 min-h-[40px]">
-              <option value="">Выберите культуру</option>
-              {ANALYSIS_CROP_IDS.map(id => <option key={id} value={id}>{CROPS.find(crop => crop.id === id)?.nameRu}</option>)}
-            </select>
             <p className="mt-2 text-[10px] text-emerald-100">Экспериментальный анализ · 5 культур. Другие болезни и скрытые инфекции могут не определяться.</p>
             {/* Action Buttons */}
             <div className="grid grid-cols-2 gap-2.5 mt-4">
               <button
                 type="button"
-                onClick={() => cameraInputRef.current?.click()} disabled={!selectedCrop}
+                onClick={() => cameraInputRef.current?.click()}
                 className="flex items-center justify-center space-x-2 py-3 px-3 bg-white text-emerald-800 rounded-xl font-bold text-xs shadow-sm hover:bg-emerald-50 active:scale-95 transition min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Camera className="w-4 h-4 text-emerald-700" />
@@ -232,7 +223,7 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
               </button>
               <button
                 type="button"
-                onClick={() => fileInputRef.current?.click()} disabled={!selectedCrop}
+                onClick={() => fileInputRef.current?.click()}
                 className="flex items-center justify-center space-x-2 py-3 px-3 bg-emerald-700/80 border border-emerald-400/40 text-white rounded-xl font-bold text-xs hover:bg-emerald-700 active:scale-95 transition min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Upload className="w-4 h-4 text-emerald-200" />

@@ -9,19 +9,28 @@ const transport = (winner = 30, delay = 0) => `self.onmessage = ({data}) => {
   setTimeout(()=>self.postMessage({type:'result',requestId:data.requestId,logits,features,inferenceMs:123}),${delay});
 }`;
 
-test('offers exactly five analysis crops and uses a genuine result for a preset', async ({ page }) => {
+test('starts with camera and upload available without a crop selector and analyzes a preset', async ({ page }) => {
   await page.route('**/diagnosis.worker.js', route => route.fulfill({ contentType: 'application/javascript', body: transport() }));
   await page.goto('/');
-  const choices = page.getByLabel('Культура для анализа');
-  await expect(choices.locator('option')).toHaveCount(6);
-  await expect(choices).toContainText('Сладкий перец');
-  await expect(choices).toContainText('Земляника');
+  await expect(page.getByLabel('Культура для анализа')).toHaveCount(0);
+  await expect(page.getByRole('button', { name:'Камера',exact:true })).toBeEnabled();
+  await expect(page.getByRole('button', { name:'Загрузить',exact:true })).toBeEnabled();
   await expect(page.getByText('за 2 секунды')).toHaveCount(0);
   await page.getByRole('button', { name: /Томат: Фитофтороз/ }).click();
   await expect(page.getByRole('heading', { name: 'Фитофтороз томатов', exact: true })).toBeVisible();
   await expect(page.getByText('Оценка модели', { exact: true })).toBeVisible();
   await page.getByRole('tab', { name: /Полевой журнал/ }).click();
   await expect(page.getByText('Тестовый образец', { exact: true })).toBeVisible();
+});
+
+test('uses the model crop rather than the preset label when identifying and saving a result', async ({ page }) => {
+  await page.route('**/diagnosis.worker.js', route => route.fulfill({ contentType:'application/javascript',body:transport(18) }));
+  await page.goto('/');
+  await page.getByRole('button', { name:/Томат: Фитофтороз/ }).click();
+  await expect(page.getByRole('heading', { name:'Бактериальная пятнистость сладкого перца',exact:true })).toBeVisible();
+  const records = await page.evaluate(() => JSON.parse(localStorage.getItem('agronomist_field_journal_v1')!));
+  expect(records).toHaveLength(1);
+  expect(records[0]).toMatchObject({cropId:'pepper',conditionId:'pepper_bacterial_spot'});
 });
 
 test('unsupported winner is a refusal and does not create a diagnosis or journal row', async ({ page }) => {

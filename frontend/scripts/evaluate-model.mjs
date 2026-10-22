@@ -40,13 +40,13 @@ try {
   const analyze = async (sample, requestId) => {
     const bytes = await fs.readFile(path.join(root, sample.file));
     if (createHash('sha256').update(bytes).digest('hex') !== sample.sha256) throw new Error('Image hash mismatch');
-    return page.evaluate(async ({ base64, cropId, requestId }) => {
+    return page.evaluate(async ({ base64, requestId }) => {
       const bytes = Uint8Array.from(atob(base64), char => char.charCodeAt(0));
       const image = new Blob([bytes], { type: 'image/jpeg' });
       const started = performance.now();
-      const outcome = await leafDiagnosis.analyzeLeaf({ requestId, image, selectedCropId: cropId, source: 'upload' }, () => {}, new AbortController().signal);
+      const outcome = await leafDiagnosis.analyzeLeaf({ requestId, image, source: 'upload' }, () => {}, new AbortController().signal);
       return { outcome, totalMs: performance.now() - started };
-    }, { base64: bytes.toString('base64'), cropId: sample.trueCropId, requestId });
+    }, { base64: bytes.toString('base64'), requestId });
   };
   const warmup = await analyze(manifest.samples[0], 'cold-start');
   if (warmup.outcome.status === 'error') throw new Error(JSON.stringify(warmup.outcome));
@@ -65,7 +65,7 @@ try {
       const canvas = document.createElement('canvas'); canvas.width = canvas.height = 256;
       const context = canvas.getContext('2d'); context.fillStyle = color; context.fillRect(0, 0, 256, 256);
       const image = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
-      const outcome = await leafDiagnosis.analyzeLeaf({ requestId: `negative-${index}`, image, selectedCropId: 'tomato', source: 'upload' }, () => {}, new AbortController().signal);
+      const outcome = await leafDiagnosis.analyzeLeaf({ requestId: `negative-${index}`, image, source: 'upload' }, () => {}, new AbortController().signal);
       outcomes.push({ case: color, status: outcome.status, reason: outcome.reason });
     }
     return outcomes;

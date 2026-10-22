@@ -10,7 +10,7 @@ test('real uploaded leaf is analyzed locally and its thumbnail survives a reload
     await fs.mkdir(process.env.EVIDENCE_DIR, { recursive: true });
     await page.screenshot({ path: path.join(process.env.EVIDENCE_DIR, 'dinov2-home.png'), fullPage: false });
   }
-  await page.getByLabel('Культура для анализа').selectOption('tomato');
+  await expect(page.getByRole('button', { name:'Загрузить',exact:true })).toBeEnabled();
   await page.getByLabel('Загрузка фотографии растения').setInputFiles(path.resolve('public/data/plantvillage/Tomato___Late_blight/0003faa8-4b27-4c65-bf42-6d9e352ca1a5___RS_Late.B 4946.JPG'));
   await expect(page.getByRole('heading', { name:'Фитофтороз томатов',exact:true })).toBeVisible({ timeout:60_000 });
   if (process.env.EVIDENCE_DIR) await page.screenshot({ path: path.join(process.env.EVIDENCE_DIR, 'dinov2-result.png'), fullPage: false });
@@ -18,6 +18,7 @@ test('real uploaded leaf is analyzed locally and its thumbnail survives a reload
   const records = await page.evaluate(() => JSON.parse(localStorage.getItem('agronomist_field_journal_v1')!));
   expect(records).toHaveLength(1);
   expect(records[0].origin).toBe('model_upload');
+  expect(records[0].cropId).toBe('tomato');
   expect(records[0].score).toBeGreaterThanOrEqual(.85);
   expect(records[0].imageSrc).toMatch(/^data:image\/jpeg;base64,/);
   expect(records[0].imageSrc.length*.75).toBeLessThan(80*1024);

@@ -10,6 +10,7 @@ import { analyzeLeaf } from '@/lib/diagnosis/client';
 import { createJournalThumbnail } from '@/lib/journal';
 import { AnalysisProgress, DiagnosisOutcome } from '@/lib/diagnosis/types';
 import { ScanFeedback } from './ScanFeedback';
+import { RecognitionCoverage } from './RecognitionCoverage';
 import {
   Camera,
   Upload,
@@ -241,6 +242,8 @@ export const Scanner: React.FC<ScannerProps> = ({ onScanComplete }) => {
           </div>
         </div>
       )}
+
+      <RecognitionCoverage />
 
       {/* Preset Samples Section */}
       <div className="space-y-2.5">
